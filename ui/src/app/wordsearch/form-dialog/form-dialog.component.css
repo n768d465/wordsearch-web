@@ -1,0 +1,13 @@
+.ws-form {
+  border: 1px solid;
+}
+
+.error-msg {
+  color: red;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.ng-invalid:not(form) {
+  border-color: red;
+}

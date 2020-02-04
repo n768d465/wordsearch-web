@@ -1,0 +1,23 @@
+<div class="ws-container">
+  <div class="ws-content">
+    <wordsearch-grid
+      [gridData]="gridToUse"
+      [highlightedWord]="selectedWord"
+      [isLoading]="logicService.isLoading"
+    ></wordsearch-grid>
+    <wordsearch-bank
+      class="ws-bank"
+      [bank]="wordsearchData.wordBank"
+      (onHover)="getHoveredWord($event)"
+      [isLoading]="logicService.isLoading"
+    ></wordsearch-bank>
+    <button
+      *ngIf="!logicService.isLoading"
+      mat-raised-button
+      color="primary"
+      (click)="buildGrid()"
+    >
+      Get New Wordsearch
+    </button>
+  </div>
+</div>
