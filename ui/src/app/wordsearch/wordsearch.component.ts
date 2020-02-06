@@ -1,5 +1,4 @@
-import { Component, OnInit, SimpleChanges, SimpleChange } from "@angular/core";
-import { WordsearchDataService } from "../services/wordsearch-data.service";
+import { Component } from "@angular/core";
 import { IWordSearchFormData } from "../shared/word-search-form-data";
 
 @Component({

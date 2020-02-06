@@ -1,13 +1,7 @@
-import { Component, Output, EventEmitter, Input } from "@angular/core";
+import { Component, Output, EventEmitter } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { FormDialogComponent } from "../form-dialog/form-dialog.component";
 import { IWordSearchFormData } from "src/app/shared/word-search-form-data";
-import {
-  ValidatorFn,
-  ValidationErrors,
-  AbstractControl,
-  Validators
-} from "@angular/forms";
 
 @Component({
   selector: "ws-settings-dialog",
