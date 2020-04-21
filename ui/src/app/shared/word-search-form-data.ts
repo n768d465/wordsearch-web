@@ -1,6 +1,4 @@
-import { AbstractControl, ValidationErrors } from "@angular/forms";
-
-export interface IWordSearchFormData {
+export interface IWordSearchParams {
   wordsearchSize: string;
   maxWordLength: string;
   showWordsOnly: boolean;

@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { FormDialogComponent } from "../form-dialog/form-dialog.component";
-import { IWordSearchFormData } from "src/app/shared/word-search-form-data";
+import { IWordSearchParams } from "src/app/shared/word-search-form-data";
 
 @Component({
   selector: "ws-settings-dialog",
@@ -9,12 +9,12 @@ import { IWordSearchFormData } from "src/app/shared/word-search-form-data";
   styleUrls: ["./navbar.component.css"]
 })
 export class NavbarComponent {
-  formData: IWordSearchFormData;
-  @Output() onSubmitted: EventEmitter<IWordSearchFormData> = new EventEmitter<
-    IWordSearchFormData
+  formData: IWordSearchParams;
+  @Output() onSubmitted: EventEmitter<IWordSearchParams> = new EventEmitter<
+    IWordSearchParams
   >();
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
     this.formData = {

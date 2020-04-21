@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { WordsearchDataService } from "./wordsearch-data.service";
-import { IWordSearchFormData } from "../shared/word-search-form-data";
+import { IWordSearchParams } from "../shared/word-search-form-data";
 import { Observable } from "rxjs";
 import {
   IWordSearchData,
@@ -12,9 +12,9 @@ import { map, finalize } from "rxjs/operators";
   providedIn: "root"
 })
 export class WordsearchLogicService {
-  constructor(private dataService: WordsearchDataService) {}
+  constructor(private dataService: WordsearchDataService) { }
   isLoading = false;
-  buildWordSearch(formData: IWordSearchFormData): Observable<IWordSearchData> {
+  buildWordSearch(formData: IWordSearchParams): Observable<IWordSearchData> {
     this.isLoading = true;
     return this.dataService.getWordSearch(formData).pipe(
       map(data => {

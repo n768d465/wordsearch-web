@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { IWordSearchFormData } from "src/app/shared/word-search-form-data";
+import { IWordSearchParams } from "src/app/shared/word-search-form-data";
 import { gridSizeValidator } from "src/app/validators/grid-size.validator";
 import { wordLengthValidator } from "src/app/validators/word-length.validator";
 
@@ -11,14 +11,14 @@ import { wordLengthValidator } from "src/app/validators/word-length.validator";
   styleUrls: ["./form-dialog.component.css"]
 })
 export class FormDialogComponent implements OnInit {
-  wordsearchFormData: IWordSearchFormData;
+  wordsearchFormData: IWordSearchParams;
   wordsearchForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<FormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IWordSearchFormData
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: IWordSearchParams
+  ) { }
 
   ngOnInit() {
     this.wordsearchFormData = this.data;

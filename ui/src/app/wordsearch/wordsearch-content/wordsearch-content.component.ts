@@ -5,7 +5,7 @@ import {
   SimpleChanges,
   OnChanges
 } from "@angular/core";
-import { IWordSearchFormData } from "src/app/shared/word-search-form-data";
+import { IWordSearchParams } from "src/app/shared/word-search-form-data";
 import {
   IWordSearchData,
   IWordConfiguration
@@ -18,7 +18,7 @@ import { WordsearchLogicService } from "src/app/services/wordsearch-logic.servic
   styleUrls: ["./wordsearch-content.component.css"]
 })
 export class WordsearchContentComponent implements OnInit, OnChanges {
-  @Input() formData: IWordSearchFormData;
+  @Input() formData: IWordSearchParams;
   gridToUse: string[][];
   selectedWord: IWordConfiguration;
   wordsearchData: IWordSearchData = {

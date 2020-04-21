@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { IWordSearchFormData } from "../shared/word-search-form-data";
+import { IWordSearchParams } from "../shared/word-search-form-data";
 
 @Component({
   selector: "app-wordsearch",
@@ -7,9 +7,9 @@ import { IWordSearchFormData } from "../shared/word-search-form-data";
   styleUrls: ["./wordsearch.component.css"]
 })
 export class WordsearchComponent {
-  formData: IWordSearchFormData;
+  formData: IWordSearchParams;
 
-  retrieveFormData(formData: IWordSearchFormData) {
+  retrieveFormData(formData: IWordSearchParams) {
     this.formData = formData;
   }
 }

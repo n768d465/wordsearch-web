@@ -18,6 +18,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { WordsearchContentComponent } from "./wordsearch/wordsearch-content/wordsearch-content.component";
 import { CommonModule } from "@angular/common";
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -40,9 +41,9 @@ import { CommonModule } from "@angular/common";
     MatButtonModule,
     DialogModule,
     MatProgressSpinnerModule,
-    CommonModule
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
