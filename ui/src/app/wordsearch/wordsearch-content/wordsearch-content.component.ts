@@ -27,14 +27,14 @@ export class WordsearchContentComponent implements OnInit, OnChanges {
     gridWordsOnly: [[]],
     wordConfigurationData: []
   };
-  constructor(private logicService: WordsearchLogicService) {}
+  constructor(public logicService: WordsearchLogicService) { }
 
   ngOnInit() {
     this.buildGrid();
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes && changes.formData && changes.formData.currentValue) {
+    if (changes?.formData?.currentValue) {
       this.gridToUse = this.setGrid();
     }
   }
