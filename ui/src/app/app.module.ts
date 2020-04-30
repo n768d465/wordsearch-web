@@ -19,6 +19,8 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { WordsearchContentComponent } from "./wordsearch/wordsearch-content/wordsearch-content.component";
 import { CommonModule } from "@angular/common";
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { wordsearchReducer, WordsearchEffects } from './store';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,12 @@ import { StoreModule } from '@ngrx/store';
     DialogModule,
     MatProgressSpinnerModule,
     CommonModule,
+    EffectsModule.forRoot([]),
+    StoreModule.forFeature('wsState', {
+      state: wordsearchReducer
+    }),
+    EffectsModule.forFeature([WordsearchEffects]),
+    StoreModule.forRoot({}),
   ],
   providers: [],
   bootstrap: [AppComponent]

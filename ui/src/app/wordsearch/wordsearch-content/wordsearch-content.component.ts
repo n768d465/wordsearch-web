@@ -11,6 +11,11 @@ import {
   IWordConfiguration
 } from "src/app/shared/word-search-data";
 import { WordsearchLogicService } from "src/app/services/wordsearch-logic.service";
+import { Store, select } from '@ngrx/store';
+import { AppState } from 'src/app/app.state';
+import { Observable } from 'rxjs';
+import { selectWsData, WordSearchParamsState, FetchWordsearch } from 'src/app/store';
+import { tap, map } from 'rxjs/operators';
 
 @Component({
   selector: "ws-content",
@@ -27,10 +32,13 @@ export class WordsearchContentComponent implements OnInit, OnChanges {
     gridWordsOnly: [[]],
     wordConfigurationData: []
   };
-  constructor(public logicService: WordsearchLogicService) { }
+  ab$: Observable<any>;
+  constructor(private store: Store<AppState>, public logicService: WordsearchLogicService) { }
 
   ngOnInit() {
     this.buildGrid();
+    this.store.dispatch(FetchWordsearch());
+    this.ab$ = this.store.select(selectWsData).pipe(tap(data => console.log(data)));
   }
 
   ngOnChanges(changes: SimpleChanges) {
