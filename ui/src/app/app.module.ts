@@ -52,9 +52,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     CommonModule,
     FlexLayoutModule,
     EffectsModule.forRoot([]),
-    StoreModule.forFeature('wsState', {
-      state: wordsearchReducer
-    }),
+    StoreModule.forFeature('wsState', wordsearchReducer),
     EffectsModule.forFeature([WordsearchEffects]),
     StoreModule.forRoot({}),
   ],

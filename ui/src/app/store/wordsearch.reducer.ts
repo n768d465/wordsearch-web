@@ -1,13 +1,17 @@
-import { createReducer, on } from '@ngrx/store'
+import { createReducer, on, Action } from '@ngrx/store'
 import { FetchWordsearchSuccess } from './wordsearch.actions'
-import { initialWordSearchParamsState } from './wordsearch.state'
+import { initialWordSearchParamsState, WordSearchParamsState } from './wordsearch.state'
 
-export const wordsearchReducer = createReducer(
+const reducer = createReducer(
     initialWordSearchParamsState,
     on(FetchWordsearchSuccess, (state, payload) => {
         return {
             ...state,
-            payload
+            data: payload
         }
     })
 )
+
+export function wordsearchReducer(state: WordSearchParamsState, action: Action) {
+    return reducer(state, action);
+}

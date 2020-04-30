@@ -6,26 +6,31 @@ import {
   IWordSearchData,
   IWordConfiguration
 } from "../shared/word-search-data";
-import { map, finalize } from "rxjs/operators";
+import { map, finalize, tap, filter } from "rxjs/operators";
+import { AppState } from '../app.state';
+import { Store } from '@ngrx/store';
+import { selectWsData } from '../store/wordsearch.selectors';
 
 @Injectable({
   providedIn: "root"
 })
 export class WordsearchLogicService {
-  constructor(private dataService: WordsearchDataService) { }
+  constructor(private dataService: WordsearchDataService, private store: Store<AppState>) {
+
+  }
   isLoading = false;
-  buildWordSearch(formData: IWordSearchParams): Observable<IWordSearchData> {
-    this.isLoading = true;
-    return this.dataService.getWordSearch(formData).pipe(
+  buildWordSearch(): Observable<IWordSearchData> {
+    return this.store.select(selectWsData).pipe(
       map(data => {
-        return {
-          grid: data.grid,
-          gridWordsOnly: data.gridWordsOnly,
-          wordBank: data.wordBank,
-          wordConfigurationData: data.wordConfigurationData
-        };
-      }),
-      finalize(() => (this.isLoading = false))
+        if (data) {
+          return {
+            grid: data.grid,
+            gridWordsOnly: data.gridWordsOnly,
+            wordBank: data.wordBank,
+            wordConfigurationData: data.wordConfigurationData
+          }
+        }
+      })
     );
   }
 
