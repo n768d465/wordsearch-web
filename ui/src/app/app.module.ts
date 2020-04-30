@@ -20,7 +20,10 @@ import { WordsearchContentComponent } from "./wordsearch/wordsearch-content/word
 import { CommonModule } from "@angular/common";
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { wordsearchReducer, WordsearchEffects } from './store';
+import { wordsearchReducer } from './store/wordsearch.reducer';
+import { WordsearchEffects } from './store/wordsearch.effects';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,9 @@ import { wordsearchReducer, WordsearchEffects } from './store';
     MatToolbarModule,
     MatIconModule,
     MatDialogModule,
+    MatInputModule,
     MatButtonModule,
+    MatCheckboxModule,
     DialogModule,
     MatProgressSpinnerModule,
     CommonModule,
