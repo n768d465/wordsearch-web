@@ -1,14 +1,16 @@
 <ng-container *ngIf="ab$ | async as ab">
-  <div class="ws-container">
-    <div class="ws-content">
+  <div fxLayout="row">
+    <div>
       <wordsearch-grid [gridData]="gridToUse" [highlightedWord]="selectedWord" [isLoading]="logicService.isLoading">
       </wordsearch-grid>
-      <wordsearch-bank class="ws-bank" [bank]="ab.wordBank" (onHover)="getHoveredWord($event)"
-        [isLoading]="logicService.isLoading"></wordsearch-bank>
+    </div>
+    <div>
+      <wordsearch-bank class="ws-bank" [bank]="wordsearchData.wordBank" (onHover)="getHoveredWord($event)">
+      </wordsearch-bank>
       <button *ngIf="!logicService.isLoading" mat-raised-button color="primary" (click)="buildGrid()">
         Get New Wordsearch
       </button>
+      <mat-checkbox>Show words only</mat-checkbox>
     </div>
   </div>
-
 </ng-container>

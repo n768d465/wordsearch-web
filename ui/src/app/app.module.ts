@@ -24,6 +24,7 @@ import { wordsearchReducer } from './store/wordsearch.reducer';
 import { WordsearchEffects } from './store/wordsearch.effects';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     DialogModule,
     MatProgressSpinnerModule,
     CommonModule,
+    FlexLayoutModule,
     EffectsModule.forRoot([]),
     StoreModule.forFeature('wsState', {
       state: wordsearchReducer

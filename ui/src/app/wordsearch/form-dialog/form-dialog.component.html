@@ -3,65 +3,14 @@
 </h1>
 <div mat-dialog-content>
   <form [formGroup]="wordsearchForm">
-    <div class="form-row">
-      <label class="col">
-        Wordsearch Size
-      </label>
-      <div class="col">
-        <input
-          type="text"
-          class="form-control form-control-sm"
-          formControlName="wordsearchSize"
-        />
-      </div>
-    </div>
-
-    <div class="form-row">
-      <label class="col">
-        Max Word Length
-      </label>
-      <div class="col">
-        <input
-          type="text"
-          class="form-control form-control-sm "
-          formControlName="maxWordLength"
-        />
-      </div>
-    </div>
-
-    <div class="form-row">
-      <label class="col">
-        Show words only
-      </label>
-      <div class="col">
-        <input
-          class="form-check-input-reverse"
-          type="checkbox"
-          formControlName="showWordsOnly"
-        />
-      </div>
-    </div>
-
-    <div
-      class="form-row error-msg"
-      *ngIf="
-        wordsearchForm.controls.maxWordLength.errors &&
-        wordsearchForm.controls.maxWordLength.errors.wordLengthValidator as err
-      "
-    >
-      {{ err.value }}
-    </div>
-
-    <div
-      class="form-row error-msg"
-      *ngIf="
-        wordsearchForm.controls.wordsearchSize.errors &&
-        wordsearchForm.controls.wordsearchSize.errors.gridSizeValidator as err
-      "
-    >
-      {{ err.value }}
-    </div>
-
+    <mat-form-field class="form-field">
+      <mat-label>Wordsearch Size</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Max Word Length</mat-label>
+      <input matInput>
+    </mat-form-field>
     <div class="form-row">
       <button mat-raised-button (click)="onSave()">Save</button>
       <button mat-raised-button (click)="onClose()">

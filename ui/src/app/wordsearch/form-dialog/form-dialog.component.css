@@ -11,3 +11,7 @@
 .ng-invalid:not(form) {
   border-color: red;
 }
+
+.form-field {
+  width: 100%;
+}

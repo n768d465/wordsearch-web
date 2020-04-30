@@ -1,19 +1,19 @@
-.ws-container {
+/* .ws-container {
   display: flex;
   justify-content: center;
   font-family: "Roboto";
-}
+} */
 
-.ws-content {
+/* .ws-content {
   display: inline-flex;
   flex-direction: column;
-}
+} */
 
-.bank-container {
+/* .bank-container {
   height: 75vh;
   width: 25vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 5px;
-}
+} */

@@ -14,15 +14,16 @@ import { WordsearchLogicService } from "src/app/services/wordsearch-logic.servic
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { Observable } from 'rxjs';
-import { selectWsData, WordSearchParamsState, FetchWordsearch } from 'src/app/store';
 import { tap, map } from 'rxjs/operators';
+import { FetchWordsearch } from 'src/app/store/wordsearch.actions';
+import { selectWsData } from 'src/app/store/wordsearch.selectors';
 
 @Component({
   selector: "ws-content",
   templateUrl: "./wordsearch-content.component.html",
   styleUrls: ["./wordsearch-content.component.css"]
 })
-export class WordsearchContentComponent implements OnInit, OnChanges {
+export class WordsearchContentComponent implements OnInit {
   @Input() formData: IWordSearchParams;
   gridToUse: string[][];
   selectedWord: IWordConfiguration;
@@ -41,19 +42,19 @@ export class WordsearchContentComponent implements OnInit, OnChanges {
     this.ab$ = this.store.select(selectWsData).pipe(tap(data => console.log(data)));
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes?.formData?.currentValue) {
-      this.gridToUse = this.setGrid();
-    }
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if (changes?.formData?.currentValue) {
+  //     this.gridToUse = this.setGrid();
+  //   }
+  // }
 
-  setGrid = () =>
-    this.logicService.setGrid(this.wordsearchData, this.formData.showWordsOnly);
+  // setGrid = () =>
+  //   this.logicService.setGrid(this.wordsearchData, this.formData.showWordsOnly);
 
   buildGrid() {
     this.logicService.buildWordSearch(this.formData).subscribe(data => {
       this.wordsearchData = data;
-      this.gridToUse = this.setGrid();
+      // this.gridToUse = this.setGrid();
     });
   }
 
