@@ -6,10 +6,4 @@ import { IWordSearchParams } from "../shared/word-search-form-data";
   templateUrl: "./wordsearch.component.html",
   styleUrls: ["./wordsearch.component.css"]
 })
-export class WordsearchComponent {
-  formData: IWordSearchParams;
-
-  retrieveFormData(formData: IWordSearchParams) {
-    this.formData = formData;
-  }
-}
+export class WordsearchComponent { }

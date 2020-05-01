@@ -4,5 +4,6 @@ import { IWordSearchParams } from '../shared/word-search-form-data';
 
 export const FetchWordsearch = createAction("[Wordsearch] Fetch Wordsearch")
 export const FetchWordsearchSuccess = createAction("[Wordsearch] Fetch Wordsearch Success", props<IWordSearchData>())
-export const showWordsOnlyCheckboxToggled = createAction("[Wordsearch] Show Words Only Checkbox Toggled", props<{ showWordsOnly: boolean }>());
 export const SaveWordsearchParams = createAction("[Wordsearch] Save Wordsearch Params", props<IWordSearchParams>())
+export const MouseHoveredOnWord = createAction("[Wordsearch] Mouse Hovered on Word", props<{ word: string }>());
+export const MouseLeaveOnWord = createAction("[Wordsearch] Mouse Leave on Word");

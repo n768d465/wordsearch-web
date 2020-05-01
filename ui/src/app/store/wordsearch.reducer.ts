@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from '@ngrx/store'
-import { FetchWordsearchSuccess, FetchWordsearch, showWordsOnlyCheckboxToggled, SaveWordsearchParams } from './wordsearch.actions'
+import { FetchWordsearchSuccess, FetchWordsearch, SaveWordsearchParams, MouseHoveredOnWord, MouseLeaveOnWord } from './wordsearch.actions'
 import { initialWordSearchParamsState, WordSearchParamsState } from './wordsearch.state'
 
 const reducer = createReducer(
@@ -17,11 +17,15 @@ const reducer = createReducer(
             data: payload
         }
     }),
-    on(showWordsOnlyCheckboxToggled, (state, payload) => {
-        return { ...state, showWordsOnly: payload.showWordsOnly }
-    }),
     on(SaveWordsearchParams, (state, params) => {
         return { ...state, params }
+    }),
+    on(MouseHoveredOnWord, (state, payload) => {
+        const coordinates = state.data.wordConfigurationData.find(w => payload.word === w.word)
+        return { ...state, hoveredWord: { word: payload.word, coordinates: coordinates.positions } }
+    }),
+    on(MouseLeaveOnWord, (state) => {
+        return { ...state, hoveredWord: { word: '', coordinates: [] } }
     })
 )
 

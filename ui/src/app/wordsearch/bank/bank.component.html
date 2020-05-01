@@ -1,10 +1,6 @@
 <h4 class="bank-header">Word Bank</h4>
-<ul *ngIf="!isLoading" class="bank-items">
+<ul class="bank-items">
   <ng-container *ngFor="let b of bank">
-    <li
-      (mouseenter)="emitHover(b)"
-      (mouseleave)="emitMouseLeave()"
-      [innerText]="b"
-    ></li>
+    <li (mouseenter)="emitHover(b)" (mouseleave)="emitMouseLeave()" [innerText]="b"></li>
   </ng-container>
 </ul>

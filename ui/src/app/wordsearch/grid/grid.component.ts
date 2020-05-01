@@ -7,6 +7,8 @@ import {
   ElementRef
 } from "@angular/core";
 import { WordsearchLogicService } from "src/app/services/wordsearch-logic.service";
+import { AppState } from 'src/app/app.state';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: "wordsearch-grid",
@@ -15,13 +17,12 @@ import { WordsearchLogicService } from "src/app/services/wordsearch-logic.servic
 })
 export class GridComponent {
   @Input() gridData: any;
-  @Input() highlightedWord: any;
-  @Input() isLoading: boolean;
+  @Input() highlightedWord: string;
   @ViewChildren("letters") letters: QueryList<ElementRef>;
   cellHeight: any;
   color = "white";
 
-  constructor(private logicService: WordsearchLogicService) {}
+  constructor(private logicService: WordsearchLogicService, private store: Store<AppState>) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && changes.gridData && changes.gridData.currentValue) {
@@ -30,10 +31,12 @@ export class GridComponent {
       );
     }
 
-    if (changes && changes.highlightedWord) {
-      if (changes.highlightedWord.currentValue) {
-        this.setBorderColor(changes.highlightedWord.currentValue.positions);
-      } else {
+    if (changes?.highlightedWord?.currentValue) {
+      const currentValue = changes.highlightedWord.currentValue
+      if (currentValue.word) {
+        this.setBorderColor(changes.highlightedWord.currentValue.coordinates)
+      }
+      else {
         this.setBorderColor(null);
       }
     }

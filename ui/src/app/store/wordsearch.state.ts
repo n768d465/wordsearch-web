@@ -5,12 +5,12 @@ export interface WordSearchParamsState {
     isLoading: boolean;
     params: IWordSearchParams
     data: IWordSearchData
-    showWordsOnly: boolean
+    hoveredWord: { word: string, coordinates: number[][] }
 }
 
 export const initialWordSearchParamsState = {
     isLoading: false,
     params: { maxWordLength: "7", wordsearchSize: "10" },
     data: null,
-    showWordsOnly: false
+    hoveredWord: { word: '', coordinates: [] }
 }

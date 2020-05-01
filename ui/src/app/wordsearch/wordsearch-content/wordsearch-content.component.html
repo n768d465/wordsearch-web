@@ -1,11 +1,12 @@
 <ng-container *ngIf="wordSearchData$ | async as wordSearchData">
   <div fxLayout="row">
     <div>
-      <wordsearch-grid [gridData]="showWordsOnly ? wordSearchData.gridWordsOnly : wordSearchData.grid">
+      <wordsearch-grid [gridData]="showWordsOnly ? wordSearchData.gridWordsOnly : wordSearchData.grid"
+        [highlightedWord]="highlightedWord">
       </wordsearch-grid>
     </div>
     <div>
-      <wordsearch-bank class="ws-bank" [bank]="wordSearchData.wordBank" (onHover)="getHoveredWord($event)">
+      <wordsearch-bank class=" ws-bank" [bank]="wordSearchData.wordBank" (onHover)="getHoveredWord($event)">
       </wordsearch-bank>
       <button mat-raised-button color="primary" (click)="buildWordSearch()">
         Get New Wordsearch

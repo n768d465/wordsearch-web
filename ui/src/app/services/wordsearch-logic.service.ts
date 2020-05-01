@@ -1,15 +1,12 @@
 import { Injectable } from "@angular/core";
-import { WordsearchDataService } from "./wordsearch-data.service";
-import { IWordSearchParams } from "../shared/word-search-form-data";
-import { Observable, forkJoin } from "rxjs";
+import { Observable } from "rxjs";
 import {
   IWordSearchData,
-  IWordConfiguration
 } from "../shared/word-search-data";
-import { map, finalize, tap, filter, take } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
-import { selectWsData, selectGridToUse } from '../store/wordsearch.selectors';
+import { selectWsData, selectHoveredWord } from '../store/wordsearch.selectors';
 
 @Injectable({
   providedIn: "root"
@@ -32,11 +29,8 @@ export class WordsearchLogicService {
     );
   }
 
-  getHoveredWord(
-    configurationData: IWordConfiguration[],
-    word: string
-  ): IWordConfiguration {
-    return configurationData.find(configItem => configItem.word === word);
+  getHighlightedWord() {
+    console.log('abc')
   }
 
   setBorderColor(positions: any, refs: any) {

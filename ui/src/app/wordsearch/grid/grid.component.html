@@ -1,21 +1,11 @@
 <div class="grid-container">
-  <div *ngIf="isLoading; else grid" class="spinner-container">
+  <div *ngIf="false; else grid" class="spinner-container">
     <mat-spinner class="spinner"></mat-spinner>
   </div>
   <ng-template #grid>
-    <div
-      class="grid-row"
-      *ngFor="let gr of gridData; let i = index"
-      [style.height.%]="cellHeight"
-    >
-      <div
-        #letters
-        class="grid-item"
-        *ngFor="let g of gr; let j = index"
-        [style.background-color]="color"
-        [innerText]="g"
-        id="{{ i }}_{{ j }}"
-      ></div>
+    <div class="grid-row" *ngFor="let gr of gridData; let i = index" [style.height.%]="cellHeight">
+      <div #letters class="grid-item" *ngFor="let g of gr; let j = index" [style.background-color]="color"
+        [innerText]="g" id="{{ i }}_{{ j }}"></div>
     </div>
   </ng-template>
 </div>
