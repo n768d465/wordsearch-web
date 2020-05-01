@@ -43,6 +43,7 @@ export class WordsearchContentComponent implements OnInit {
     else {
       this.store.dispatch(MouseLeaveOnWord())
     }
+
     this.store.select(selectHoveredWord).pipe(
       tap(d => this.highlightedWord = d)
     ).subscribe()

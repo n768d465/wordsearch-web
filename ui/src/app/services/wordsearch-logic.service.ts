@@ -29,16 +29,10 @@ export class WordsearchLogicService {
     );
   }
 
-  getHighlightedWord() {
-    console.log('abc')
-  }
-
   setBorderColor(positions: any, refs: any) {
     if (positions) {
       positions.map(coords => {
-        const i = coords[0];
-        const j = coords[1];
-        const ref = refs.find(item => item.nativeElement.id === `${i}_${j}`);
+        const ref = refs.find(item => item.nativeElement.id === `(${coords[0]},${coords[1]})`);
         ref.nativeElement.style.borderColor = "#304ffe";
       });
     } else {

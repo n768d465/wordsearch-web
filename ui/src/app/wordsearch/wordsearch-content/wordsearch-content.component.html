@@ -1,17 +1,19 @@
 <ng-container *ngIf="wordSearchData$ | async as wordSearchData">
-  <div fxLayout="row">
+  <div fxLayout="row" class="wsIdk">
     <div>
+      <mat-checkbox (change)="switchGrids($event)">Show words only</mat-checkbox>
       <wordsearch-grid [gridData]="showWordsOnly ? wordSearchData.gridWordsOnly : wordSearchData.grid"
         [highlightedWord]="highlightedWord">
       </wordsearch-grid>
+      <div>
+        <button style="width: 100%" mat-raised-button color="primary" (click)="buildWordSearch()">
+          Get New Wordsearch
+        </button>
+      </div>
     </div>
     <div>
-      <wordsearch-bank class=" ws-bank" [bank]="wordSearchData.wordBank" (onHover)="getHoveredWord($event)">
+      <wordsearch-bank class="ws-bank" [bank]="wordSearchData.wordBank" (onHover)="getHoveredWord($event)">
       </wordsearch-bank>
-      <button mat-raised-button color="primary" (click)="buildWordSearch()">
-        Get New Wordsearch
-      </button>
-      <mat-checkbox (change)="switchGrids($event)">Show words only</mat-checkbox>
     </div>
   </div>
 </ng-container>

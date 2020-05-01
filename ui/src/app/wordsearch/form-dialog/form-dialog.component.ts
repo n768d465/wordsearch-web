@@ -24,7 +24,6 @@ export class FormDialogComponent implements OnInit {
     private store: Store<AppState>,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<FormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IWordSearchParams
   ) { }
 
   ngOnInit() {
