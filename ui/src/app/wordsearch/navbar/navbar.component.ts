@@ -20,7 +20,6 @@ export class NavbarComponent {
     this.formData = {
       wordsearchSize: "10",
       maxWordLength: "7",
-      showWordsOnly: false
     };
     this.onSubmitted.emit(this.formData);
   }

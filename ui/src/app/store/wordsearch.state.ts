@@ -5,10 +5,12 @@ export interface WordSearchParamsState {
     isLoading: boolean;
     params: IWordSearchParams
     data: IWordSearchData
+    showWordsOnly: boolean
 }
 
 export const initialWordSearchParamsState = {
     isLoading: false,
-    params: null,
-    data: null
+    params: { maxWordLength: "7", wordsearchSize: "10" },
+    data: null,
+    showWordsOnly: false
 }

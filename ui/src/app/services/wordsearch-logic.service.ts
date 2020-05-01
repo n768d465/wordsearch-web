@@ -1,24 +1,22 @@
 import { Injectable } from "@angular/core";
 import { WordsearchDataService } from "./wordsearch-data.service";
 import { IWordSearchParams } from "../shared/word-search-form-data";
-import { Observable } from "rxjs";
+import { Observable, forkJoin } from "rxjs";
 import {
   IWordSearchData,
   IWordConfiguration
 } from "../shared/word-search-data";
-import { map, finalize, tap, filter } from "rxjs/operators";
+import { map, finalize, tap, filter, take } from "rxjs/operators";
 import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
-import { selectWsData } from '../store/wordsearch.selectors';
+import { selectWsData, selectGridToUse } from '../store/wordsearch.selectors';
 
 @Injectable({
   providedIn: "root"
 })
 export class WordsearchLogicService {
-  constructor(private dataService: WordsearchDataService, private store: Store<AppState>) {
+  constructor(private store: Store<AppState>) { }
 
-  }
-  isLoading = false;
   buildWordSearch(): Observable<IWordSearchData> {
     return this.store.select(selectWsData).pipe(
       map(data => {
@@ -27,15 +25,11 @@ export class WordsearchLogicService {
             grid: data.grid,
             gridWordsOnly: data.gridWordsOnly,
             wordBank: data.wordBank,
-            wordConfigurationData: data.wordConfigurationData
+            wordConfigurationData: data.wordConfigurationData,
           }
         }
-      })
+      }),
     );
-  }
-
-  setGrid(wordsearchData, showWordsOnly): string[][] {
-    return showWordsOnly ? wordsearchData.gridWordsOnly : wordsearchData.grid;
   }
 
   getHoveredWord(
