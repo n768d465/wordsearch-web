@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import {
   IWordSearchData,
 } from "../shared/word-search-data";
-import { map, tap } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
 import { selectWsData, selectHoveredWord } from '../store/wordsearch.selectors';

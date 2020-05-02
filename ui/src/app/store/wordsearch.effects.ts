@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core'
 import { createEffect, ofType, Actions } from '@ngrx/effects'
-import { FetchWordsearch, FetchWordsearchSuccess, MouseHoveredOnWord } from './wordsearch.actions';
-import { mergeMap, map, tap, withLatestFrom } from 'rxjs/operators';
+import { FetchWordsearch, FetchWordsearchSuccess } from './wordsearch.actions';
+import { mergeMap, map, withLatestFrom } from 'rxjs/operators';
 import { WordsearchDataService } from '../services/wordsearch-data.service';
 import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
 import { selectWsParams } from './wordsearch.selectors';
-import { WordsearchLogicService } from '../services/wordsearch-logic.service';
 
 @Injectable()
 export class WordsearchEffects {
