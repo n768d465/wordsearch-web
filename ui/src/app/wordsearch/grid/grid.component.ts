@@ -9,6 +9,8 @@ import {
 import { WordsearchLogicService } from "src/app/services/wordsearch-logic.service";
 import { AppState } from 'src/app/app.state';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectLoading } from 'src/app/store/wordsearch.selectors';
 
 @Component({
   selector: "wordsearch-grid",
@@ -16,13 +18,18 @@ import { Store } from '@ngrx/store';
   styleUrls: ["./grid.component.css"]
 })
 export class GridComponent {
-  @Input() gridData: any;
+  @Input() gridData: string[][];
   @Input() highlightedWord: string;
   @ViewChildren("letters") letters: QueryList<ElementRef>;
+  isLoading$: Observable<boolean>;
   cellHeight: any;
   color = "white";
 
   constructor(private logicService: WordsearchLogicService, private store: Store<AppState>) { }
+
+  ngOnInit() {
+    this.isLoading$ = this.store.select(selectLoading)
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && changes.gridData && changes.gridData.currentValue) {

@@ -1,14 +1,18 @@
-<ng-container *ngIf="wordSearchData$ | async as wordSearchData">
-  <div fxLayout="row" class="wsIdk">
-    <div>
-      <mat-checkbox (change)="switchGrids($event)">Show words only</mat-checkbox>
-      <wordsearch-grid [gridData]="showWordsOnly ? wordSearchData.gridWordsOnly : wordSearchData.grid"
-        [highlightedWord]="highlightedWord">
-      </wordsearch-grid>
-      <div>
-        <button style="width: 100%" mat-raised-button color="primary" (click)="buildWordSearch()">
+<ng-container *ngIf="wordSearchData$ | async as wordSearchData; else spinner">
+  <div style="margin-left: 10px" fxLayout="column">
+    <mat-checkbox (change)="switchGrids($event)">Show words only</mat-checkbox>
+  </div>
+  <div fxLayout="row">
+    <div fxLayout="column" class="wsIdk">
+      <div style="width:50%">
+        <wordsearch-grid [gridData]="showWordsOnly ? wordSearchData.gridWordsOnly : wordSearchData.grid"
+          [highlightedWord]="highlightedWord">
+        </wordsearch-grid>
+        <button style="width: 85vh" mat-raised-button color="primary" (click)="buildWordSearch()">
           Get New Wordsearch
         </button>
+        <div>
+        </div>
       </div>
     </div>
     <div>
@@ -17,3 +21,8 @@
     </div>
   </div>
 </ng-container>
+<ng-template #spinner>
+  <div class="spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

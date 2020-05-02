@@ -1,5 +1,5 @@
 <div class="grid-container">
-  <div *ngIf="false; else grid" class="spinner-container">
+  <div *ngIf="isLoading$ | async ; else grid" class="spinner-container">
     <mat-spinner class="spinner"></mat-spinner>
   </div>
   <ng-template #grid>
