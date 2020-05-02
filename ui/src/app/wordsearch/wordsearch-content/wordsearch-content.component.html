@@ -3,7 +3,7 @@
     <mat-checkbox (change)="switchGrids($event)">Show words only</mat-checkbox>
   </div>
   <div fxLayout="row">
-    <div fxLayout="column" class="wsIdk">
+    <div fxLayout="column" style="margin-left: 10px">
       <div style="width:50%">
         <wordsearch-grid [gridData]="showWordsOnly ? wordSearchData.gridWordsOnly : wordSearchData.grid"
           [highlightedWord]="highlightedWord">

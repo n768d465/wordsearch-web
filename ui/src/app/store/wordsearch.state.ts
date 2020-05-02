@@ -12,5 +12,5 @@ export const initialWordSearchParamsState = {
     isLoading: false,
     params: null,
     data: null,
-    hoveredWord: { word: '', coordinates: [] }
+    hoveredWord: null
 }

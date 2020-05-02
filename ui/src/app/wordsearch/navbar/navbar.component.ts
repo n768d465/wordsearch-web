@@ -1,10 +1,9 @@
-import { Component, Output, EventEmitter } from "@angular/core";
+import { Component } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { FormDialogComponent } from "../form-dialog/form-dialog.component";
-import { IWordSearchParams } from "src/app/shared/word-search-form-data";
 
 @Component({
-  selector: "ws-settings-dialog",
+  selector: "ws-navbar",
   templateUrl: "./navbar.component.html",
   styleUrls: ["./navbar.component.css"]
 })
