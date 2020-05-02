@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
+import { Injectable, ElementRef } from "@angular/core";
 import { Observable } from "rxjs";
 import {
   IWordSearchData,
 } from "../shared/word-search-data";
-import { map } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
 import { selectWsData, selectHoveredWord } from '../store/wordsearch.selectors';
@@ -29,7 +29,7 @@ export class WordsearchLogicService {
     );
   }
 
-  setBorderColor(positions: any, refs: any) {
+  setBorderColor(positions: number[][], refs: ElementRef[]) {
     if (positions) {
       positions.map(coords => {
         const ref = refs.find(item => item.nativeElement.id === `(${coords[0]},${coords[1]})`);
@@ -41,4 +41,6 @@ export class WordsearchLogicService {
   }
 
   computeCellHeight = (grid: string[][]): number => 100 / grid.length;
+
+  selectHighlightedWord = () => this.store.select(selectHoveredWord).pipe(map(word => word))
 }

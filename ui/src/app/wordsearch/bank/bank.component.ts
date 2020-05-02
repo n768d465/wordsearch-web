@@ -1,7 +1,4 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/app.state';
-import { MouseHoveredOnWord, MouseLeaveOnWord } from 'src/app/store/wordsearch.actions';
 
 @Component({
   selector: "wordsearch-bank",

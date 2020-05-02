@@ -10,3 +10,8 @@ export interface IWordConfiguration {
   reversed: boolean;
   positions: number[][];
 }
+
+export interface IHoveredWord {
+  word: string,
+  coordinates: number[][]
+}

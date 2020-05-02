@@ -6,11 +6,9 @@ import { WordsearchLogicService } from "src/app/services/wordsearch-logic.servic
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { Observable } from 'rxjs';
-import { FetchWordsearch, MouseHoveredOnWord, MouseLeaveOnWord } from 'src/app/store/wordsearch.actions';
+import { MouseHoveredOnWord, MouseLeaveOnWord, FetchWordsearch } from 'src/app/store/wordsearch.actions';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { selectHoveredWord } from 'src/app/store/wordsearch.selectors';
-import { tap } from 'rxjs/operators';
-import { IWordConfiguration, IWordSearchData } from 'src/app/shared/word-search-data';
+import { IWordSearchData, IHoveredWord } from 'src/app/shared/word-search-data';
 
 @Component({
   selector: "ws-content",
@@ -20,7 +18,7 @@ import { IWordConfiguration, IWordSearchData } from 'src/app/shared/word-search-
 export class WordsearchContentComponent implements OnInit {
   wordSearchData$: Observable<IWordSearchData>;
   showWordsOnly: boolean = false;
-  highlightedWord: any;
+  highlightedWord: IHoveredWord;
   constructor(private store: Store<AppState>, public logicService: WordsearchLogicService) { }
 
   ngOnInit() {
@@ -43,9 +41,6 @@ export class WordsearchContentComponent implements OnInit {
     else {
       this.store.dispatch(MouseLeaveOnWord())
     }
-
-    this.store.select(selectHoveredWord).pipe(
-      tap(d => this.highlightedWord = d)
-    ).subscribe()
+    this.logicService.selectHighlightedWord().subscribe(w => this.highlightedWord = w)
   };
 }
