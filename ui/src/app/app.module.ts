@@ -16,7 +16,6 @@ import { NavbarComponent } from "./wordsearch/navbar/navbar.component";
 import { DialogModule } from "./wordsearch/navbar/navbar.module";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { WordsearchContentComponent } from "./wordsearch/wordsearch-content/wordsearch-content.component";
 import { CommonModule } from "@angular/common";
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -33,7 +32,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     GridComponent,
     BankComponent,
     NavbarComponent,
-    WordsearchContentComponent
   ],
   imports: [
     BrowserModule,

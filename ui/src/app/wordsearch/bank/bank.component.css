@@ -1,13 +1,8 @@
-.bank-header {
-  text-align: center;
-}
-
 .bank-items {
   list-style-type: none;
 }
 
 li {
-  border: none;
   font-family: "B612 Mono", monospace;
   cursor: pointer;
 }

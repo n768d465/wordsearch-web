@@ -1,2 +1,29 @@
 <ws-navbar></ws-navbar>
-<ws-content></ws-content>
+<ng-container *ngIf="wordSearchData$ | async as wordSearchData; else spinner">
+    <div style="margin-left: 10px" fxLayout="column">
+        <mat-checkbox (change)="switchGrids($event)">Show words only</mat-checkbox>
+    </div>
+    <div fxLayout="row">
+        <div fxLayout="column" style="margin-left: 10px">
+            <div style="width:50%">
+                <wordsearch-grid [gridData]="showWordsOnly ? wordSearchData.gridWordsOnly : wordSearchData.grid"
+                    [highlightedWord]="highlightedWord">
+                </wordsearch-grid>
+                <button style="width: 85vh" mat-raised-button color="primary" (click)="buildWordSearch()">
+                    Get New Wordsearch
+                </button>
+                <div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: -8px; position: relative; left:12px">
+            <wordsearch-bank class="ws-bank" [bank]="wordSearchData.wordBank" (onHover)="getHoveredWord($event)">
+            </wordsearch-bank>
+        </div>
+    </div>
+</ng-container>
+<ng-template #spinner>
+    <div class="spinner">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>
