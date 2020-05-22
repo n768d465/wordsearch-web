@@ -6,9 +6,9 @@ import { WordsearchLogicService } from "src/app/services/wordsearch-logic.servic
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { Observable } from 'rxjs';
-import { MouseHoveredOnWord, MouseLeaveOnWord, FetchWordsearch } from 'src/app/store/wordsearch.actions';
+import { FetchWordsearch } from 'src/app/store/wordsearch.actions';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { IWordSearchData, IHoveredWord } from 'src/app/shared/word-search-data';
+import { IWordSearchData, } from 'src/app/shared/word-search-data';
 
 @Component({
   selector: "app-wordsearch",
@@ -18,7 +18,6 @@ import { IWordSearchData, IHoveredWord } from 'src/app/shared/word-search-data';
 export class WordsearchComponent implements OnInit {
   wordSearchData$: Observable<IWordSearchData>;
   showWordsOnly: boolean = false;
-  highlightedWord: IHoveredWord;
   constructor(private store: Store<AppState>, public logicService: WordsearchLogicService) { }
 
   ngOnInit() {

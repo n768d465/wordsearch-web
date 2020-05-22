@@ -10,17 +10,14 @@ import { MouseHoveredOnWord, MouseLeaveOnWord } from 'src/app/store/wordsearch.a
 })
 export class BankComponent {
   @Input() bank: string[];
-  @Output() onHover = new EventEmitter<string>();
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) { }
 
-  emitHover(word: string) {
-    // this.onHover.emit();
-    this.store.dispatch(MouseHoveredOnWord({word}))
+  onMouseHover(word: string) {
+    this.store.dispatch(MouseHoveredOnWord({ word }))
   }
 
-  emitMouseLeave() {
-    // this.onHover.emit();
+  onMouseLeave() {
     this.store.dispatch(MouseLeaveOnWord())
   }
 }
