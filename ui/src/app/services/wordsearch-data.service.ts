@@ -2,12 +2,13 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { IWordSearchParams } from "../shared/word-search-form-data";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: "root"
 })
 export class WordsearchDataService {
-  private url = "http://192.168.0.251:5000";
+  private url = environment.url;
   constructor(private http: HttpClient) { }
 
   getWordSearch(wsParams: IWordSearchParams): Observable<any> {
