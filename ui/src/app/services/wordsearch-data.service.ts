@@ -8,12 +8,13 @@ import { environment } from 'src/environments/environment';
   providedIn: "root"
 })
 export class WordsearchDataService {
-  private url = environment.url;
+  private url = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
   getWordSearch(wsParams: IWordSearchParams): Observable<any> {
     const params = new HttpParams()
       .set("dim", wsParams.wordsearchSize)
+      .set("min_word_length", wsParams.minWordLength)
       .set("max_word_length", wsParams.maxWordLength);
 
     return this.http.get<IWordSearchParams>(this.url, { params });

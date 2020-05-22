@@ -34,6 +34,10 @@ export class FormDialogComponent implements OnInit {
             data.wordsearchSize,
             gridSizeValidator()
           ],
+          minWordLength: [
+            data.minWordLength,
+            wordLengthValidator()
+          ],
           maxWordLength: [
             data.maxWordLength,
             wordLengthValidator()
@@ -51,6 +55,7 @@ export class FormDialogComponent implements OnInit {
     if (!(this.wordsearchForm.status === "INVALID")) {
       this.store.dispatch(SaveWordsearchParams({
         wordsearchSize: this.wordsearchForm.get("wordsearchSize").value,
+        minWordLength: this.wordsearchForm.get("minWordLength").value,
         maxWordLength: this.wordsearchForm.get("maxWordLength").value,
       }));
       this.dialogRef.close();
