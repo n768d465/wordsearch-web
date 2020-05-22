@@ -4,8 +4,8 @@
   </div>
   <ng-template #grid>
     <div class="grid-row" *ngFor="let gr of gridData; let i = index" [style.height.%]="cellHeight">
-      <div #letters class="grid-item" *ngFor="let g of gr; let j = index" [style.background-color]="color"
-        [innerText]="g" id="({{ i }},{{ j }})"></div>
+      <div #letters class="grid-item" *ngFor="let g of gr; let j = index" style.background-color="white" [innerText]="g"
+        id="({{ i }},{{ j }})"></div>
     </div>
   </ng-template>
 </div>

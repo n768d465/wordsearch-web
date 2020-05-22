@@ -33,14 +33,4 @@ export class WordsearchComponent implements OnInit {
   switchGrids(value: MatCheckboxChange) {
     this.showWordsOnly = value.checked;
   }
-
-  getHoveredWord = (word: string) => {
-    if (word) {
-      this.store.dispatch(MouseHoveredOnWord({ word }));
-    }
-    else {
-      this.store.dispatch(MouseLeaveOnWord())
-    }
-    this.logicService.selectHighlightedWord().subscribe(w => this.highlightedWord = w)
-  };
 }

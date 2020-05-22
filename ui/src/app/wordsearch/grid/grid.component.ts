@@ -10,7 +10,9 @@ import { WordsearchLogicService } from "src/app/services/wordsearch-logic.servic
 import { AppState } from 'src/app/app.state';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { selectLoading } from 'src/app/store/wordsearch.selectors';
+import { selectLoading, selectHoveredWord } from 'src/app/store/wordsearch.selectors';
+import { tap } from 'rxjs/operators';
+import { IHoveredWord } from 'src/app/shared/word-search-data';
 
 @Component({
   selector: "wordsearch-grid",
@@ -19,33 +21,32 @@ import { selectLoading } from 'src/app/store/wordsearch.selectors';
 })
 export class GridComponent {
   @Input() gridData: string[][];
-  @Input() highlightedWord: string;
-  @ViewChildren("letters") letters: QueryList<ElementRef>;
   isLoading$: Observable<boolean>;
   cellHeight: any;
-  color = "white";
+
+  @ViewChildren("letters") letters: QueryList<ElementRef>;
 
   constructor(private logicService: WordsearchLogicService, private store: Store<AppState>) { }
 
   ngOnInit() {
     this.isLoading$ = this.store.select(selectLoading)
+    this.store.select(selectHoveredWord).pipe(
+      tap((highlightedWord: IHoveredWord) => {
+        if (highlightedWord?.coordinates.length) {
+          this.setBorderColor(highlightedWord.coordinates)
+        }
+        else {
+          this.setBorderColor(null);
+        }
+      })
+    ).subscribe()
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && changes.gridData && changes.gridData.currentValue) {
+    if (changes?.gridData?.currentValue) {
       this.cellHeight = this.logicService.computeCellHeight(
         changes.gridData.currentValue
       );
-    }
-
-    if (changes?.highlightedWord?.currentValue) {
-      const currentValue = changes.highlightedWord.currentValue
-      if (currentValue.word) {
-        this.setBorderColor(changes.highlightedWord.currentValue.coordinates)
-      }
-      else {
-        this.setBorderColor(null);
-      }
     }
   }
 

@@ -6,8 +6,7 @@
     <div fxLayout="row">
         <div fxLayout="column" style="margin-left: 10px">
             <div style="width:50%">
-                <wordsearch-grid [gridData]="showWordsOnly ? wordSearchData.gridWordsOnly : wordSearchData.grid"
-                    [highlightedWord]="highlightedWord">
+                <wordsearch-grid [gridData]="showWordsOnly ? wordSearchData.gridWordsOnly : wordSearchData.grid">
                 </wordsearch-grid>
                 <button style="width: 85vh" mat-raised-button color="primary" (click)="buildWordSearch()">
                     Get New Wordsearch
@@ -17,7 +16,7 @@
             </div>
         </div>
         <div style="margin-top: -8px; position: relative; left:12px">
-            <wordsearch-bank class="ws-bank" [bank]="wordSearchData.wordBank" (onHover)="getHoveredWord($event)">
+            <wordsearch-bank class="ws-bank" [bank]="wordSearchData.wordBank">
             </wordsearch-bank>
         </div>
     </div>
