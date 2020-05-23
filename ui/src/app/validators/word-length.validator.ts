@@ -1,6 +1,7 @@
 import { ValidatorFn, AbstractControl, ValidationErrors } from "@angular/forms";
+import { min } from "rxjs/operators";
 
-export function wordLengthValidator(): ValidatorFn {
+export function wordLengthValidator(wordLengthType: string): ValidatorFn {
   return (control: AbstractControl): ValidationErrors => {
     if (!control) {
       return null;
@@ -10,7 +11,7 @@ export function wordLengthValidator(): ValidatorFn {
     if (!value) {
       return {
         wordLengthValidator: {
-          value: "A maximum word length is required."
+          value: `A ${wordLengthType} word length is required.`
         }
       };
     }
@@ -31,6 +32,15 @@ export function wordLengthValidator(): ValidatorFn {
         return {
           wordLengthValidator: {
             value: "Word size cannot be greater than the wordsearch size."
+          }
+        };
+      }
+      const minWordLength = Number(parent.get("minWordLength").value);
+      const maxWordLength = Number(parent.get("maxWordLength").value);
+      if (minWordLength > maxWordLength || maxWordLength < minWordLength) {
+        return {
+          wordLengthValidator: {
+            value: "The word length range is invalid."
           }
         };
       }

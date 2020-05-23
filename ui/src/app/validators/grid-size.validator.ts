@@ -25,12 +25,21 @@ export function gridSizeValidator(): ValidatorFn {
 
     const parent = control.parent;
     if (parent) {
-      const wordsearchSizeControl = parent.get("maxWordLength");
-      const sizeValue = Number(wordsearchSizeControl.value);
-      if (sizeValue > value) {
+      const maxWordLength = Number(parent.get("maxWordLength").value);
+      const minWordLength = Number(parent.get("minWordLength").value);
+      if (minWordLength > value) {
         return {
           gridSizeValidator: {
-            value: "Wordsearch size cannot be smaller than the max word length."
+            value:
+              "Wordsearch size must be greater than or equal to the min word length."
+          }
+        };
+      }
+      if (value < maxWordLength) {
+        return {
+          gridSizeValidator: {
+            value:
+              "Wordsearch size must greater than or equal to the max word length."
           }
         };
       }
