@@ -20,6 +20,11 @@
           wordsearchForm.controls.minWordLength.errors.wordLengthValidator.value
         }}</mat-error
       >
+      <mat-error *ngIf="wordsearchForm.controls.minWordLength.errors">
+        {{
+          wordsearchForm.controls.minWordLength.errors.wordRangeValidator.value
+        }}</mat-error
+      >
     </mat-form-field>
     <mat-form-field class="form-field">
       <mat-label>Max Word Length</mat-label>
@@ -27,6 +32,11 @@
       <mat-error *ngIf="wordsearchForm.controls.maxWordLength.errors">
         {{
           wordsearchForm.controls.maxWordLength.errors.wordLengthValidator.value
+        }}</mat-error
+      >
+      <mat-error *ngIf="wordsearchForm.controls.maxWordLength.errors">
+        {{
+          wordsearchForm.controls.maxWordLength.errors.wordRangeValidator.value
         }}</mat-error
       >
     </mat-form-field>

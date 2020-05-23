@@ -1,5 +1,4 @@
 import { ValidatorFn, AbstractControl, ValidationErrors } from "@angular/forms";
-import { min } from "rxjs/operators";
 
 export function wordLengthValidator(wordLengthType: string): ValidatorFn {
   return (control: AbstractControl): ValidationErrors => {
@@ -43,6 +42,8 @@ export function wordLengthValidator(wordLengthType: string): ValidatorFn {
             value: "The word length range is invalid."
           }
         };
+      } else {
+        return null;
       }
     }
 

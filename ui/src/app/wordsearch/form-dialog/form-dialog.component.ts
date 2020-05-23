@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MatDialogRef } from "@angular/material/dialog";
 import { IWordSearchParams } from "src/app/shared/word-search-form-data";
 import { gridSizeValidator } from "src/app/validators/grid-size.validator";
 import { wordLengthValidator } from "src/app/validators/word-length.validator";
