@@ -7,18 +7,22 @@ app = Flask(__name__)
 api = Api(app)
 CORS(app)
 
+ws_gen = WordSearchGenerator()
+
 
 class WordsearchApi(Resource):
     def get(self):
-        ws = WordSearchGenerator(**dict(request.args))
-        ws.make_wordsearch()
+        ws_gen.dim = request.args.get("dim", type=int)
+        ws_gen.min_word_length = request.args.get("min_word_length", type=int)
+        ws_gen.max_word_length = request.args.get("max_word_length", type=int)
+        ws_gen.make_wordsearch()
 
         return (
             {
-                "grid": ws.grid,
-                "wordBank": list(ws.bank),
-                "gridWordsOnly": ws.grid_words_only,
-                "wordConfigurationData": ws.ws_data,
+                "grid": ws_gen.grid,
+                "wordBank": list(ws_gen.bank),
+                "gridWordsOnly": ws_gen.grid_words_only,
+                "wordConfigurationData": ws_gen.ws_data,
             },
             {r"/*": {"origins": "*"}},
         )
