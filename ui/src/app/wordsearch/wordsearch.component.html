@@ -1,14 +1,11 @@
 <ws-navbar></ws-navbar>
 <ng-container *ngIf="wordSearchData$ | async as wordSearchData; else spinner">
-  <!-- <div style="margin-left: 10px" fxLayout="column">
-    <mat-checkbox (change)="switchGrids($event)">Show words only</mat-checkbox>
-  </div> -->
   <div fxLayout="row" fxLayoutAlign="center">
     <div fxLayout="column" style="margin-left: 10px">
       <mat-checkbox (change)="switchGrids($event)"
         >Show words only</mat-checkbox
       >
-      <div style="width:50%">
+      <div>
         <wordsearch-grid
           [gridData]="
             showWordsOnly ? wordSearchData.gridWordsOnly : wordSearchData.grid
