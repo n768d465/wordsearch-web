@@ -17,13 +17,14 @@ import { DialogModule } from "./wordsearch/navbar/navbar.module";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { CommonModule } from "@angular/common";
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { wordsearchReducer } from './store/wordsearch.reducer';
-import { WordsearchEffects } from './store/wordsearch.effects';
-import { MatInputModule } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+import { wordsearchReducer } from "./store/wordsearch.reducer";
+import { WordsearchEffects } from "./store/wordsearch.effects";
+import { MatInputModule } from "@angular/material/input";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { MatListModule } from "@angular/material/list";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     WordsearchComponent,
     GridComponent,
     BankComponent,
-    NavbarComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -47,14 +48,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatCheckboxModule,
     DialogModule,
     MatProgressSpinnerModule,
+    MatListModule,
     CommonModule,
     FlexLayoutModule,
     EffectsModule.forRoot([]),
-    StoreModule.forFeature('wsState', wordsearchReducer),
+    StoreModule.forFeature("wsState", wordsearchReducer),
     EffectsModule.forFeature([WordsearchEffects]),
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({})
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

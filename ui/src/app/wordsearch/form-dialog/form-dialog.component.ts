@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { MatDialogRef } from "@angular/material/dialog";
 import { IWordSearchParams } from "src/app/shared/word-search-form-data";
 import { gridSizeValidator } from "src/app/validators/grid-size.validator";
-import { wordLengthValidator } from "src/app/validators/word-length.validator";
 import { AppState } from "src/app/app.state";
 import { Store } from "@ngrx/store";
 import { selectWsParams } from "src/app/store/wordsearch.selectors";
@@ -31,8 +30,8 @@ export class FormDialogComponent implements OnInit {
       tap(data => {
         this.wordsearchForm = this.fb.group({
           wordsearchSize: [data.wordsearchSize, gridSizeValidator()],
-          minWordLength: [data.minWordLength, wordLengthValidator("minimum")],
-          maxWordLength: [data.maxWordLength, wordLengthValidator("maximum")]
+          minWordLength: [data.minWordLength],
+          maxWordLength: [data.maxWordLength]
         });
       })
     );

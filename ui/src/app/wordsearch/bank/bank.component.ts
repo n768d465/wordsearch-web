@@ -1,7 +1,10 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { AppState } from 'src/app/app.state';
-import { Store } from '@ngrx/store';
-import { MouseHoveredOnWord, MouseLeaveOnWord } from 'src/app/store/wordsearch.actions';
+import { Component, Input } from "@angular/core";
+import { AppState } from "src/app/app.state";
+import { Store } from "@ngrx/store";
+import {
+  MouseHoveredOnWord,
+  MouseLeaveOnWord
+} from "src/app/store/wordsearch.actions";
 
 @Component({
   selector: "wordsearch-bank",
@@ -11,13 +14,13 @@ import { MouseHoveredOnWord, MouseLeaveOnWord } from 'src/app/store/wordsearch.a
 export class BankComponent {
   @Input() bank: string[];
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) {}
 
   onMouseHover(word: string) {
-    this.store.dispatch(MouseHoveredOnWord({ word }))
+    this.store.dispatch(MouseHoveredOnWord({ word }));
   }
 
   onMouseLeave() {
-    this.store.dispatch(MouseLeaveOnWord())
+    this.store.dispatch(MouseLeaveOnWord());
   }
 }

@@ -1,18 +1,16 @@
 import { Injectable, ElementRef } from "@angular/core";
 import { Observable } from "rxjs";
-import {
-  IWordSearchData,
-} from "../shared/word-search-data";
+import { IWordSearchData } from "../shared/word-search-data";
 import { map } from "rxjs/operators";
-import { AppState } from '../app.state';
-import { Store } from '@ngrx/store';
-import { selectWsData, selectHoveredWord } from '../store/wordsearch.selectors';
+import { AppState } from "../app.state";
+import { Store } from "@ngrx/store";
+import { selectWsData, selectHoveredWord } from "../store/wordsearch.selectors";
 
 @Injectable({
   providedIn: "root"
 })
 export class WordsearchLogicService {
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) {}
 
   buildWordSearch(): Observable<IWordSearchData> {
     return this.store.select(selectWsData).pipe(
@@ -22,17 +20,19 @@ export class WordsearchLogicService {
             grid: data.grid,
             gridWordsOnly: data.gridWordsOnly,
             wordBank: data.wordBank,
-            wordConfigurationData: data.wordConfigurationData,
-          }
+            wordConfigurationData: data.wordConfigurationData
+          };
         }
-      }),
+      })
     );
   }
 
   setBorderColor(positions: number[][], refs: ElementRef[]) {
     if (positions) {
       positions.map(coords => {
-        const ref = refs.find(item => item.nativeElement.id === `(${coords[0]},${coords[1]})`);
+        const ref = refs.find(
+          item => item.nativeElement.id === `(${coords[0]},${coords[1]})`
+        );
         ref.nativeElement.style.borderColor = "#304ffe";
       });
     } else {
@@ -41,6 +41,4 @@ export class WordsearchLogicService {
   }
 
   computeCellHeight = (grid: string[][]): number => 100 / grid.length;
-
-  selectHighlightedWord = () => this.store.select(selectHoveredWord).pipe(map(word => word))
 }

@@ -1,8 +1,16 @@
 .bank-items {
   list-style-type: none;
+  font-family: "Muli";
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  align-items: center;
 }
 
-li {
-  font-family: "B612 Mono", monospace;
+.bank-header {
+  align-items: center;
+}
+
+.bank-item {
   cursor: pointer;
 }
