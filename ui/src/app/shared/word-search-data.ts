@@ -12,6 +12,6 @@ export interface IWordConfiguration {
 }
 
 export interface IHoveredWord {
-  word: string,
-  coordinates: number[][]
+  word: string;
+  coordinates: number[][];
 }
