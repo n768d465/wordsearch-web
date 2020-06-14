@@ -58,7 +58,7 @@ export class GridComponent {
     }
   }
 
-  setBorderColor = (positions) => {
+  setBorderColor = positions => {
     if (this.letters) {
       this.logicService.setBorderColor(positions, this.letters.toArray());
     }

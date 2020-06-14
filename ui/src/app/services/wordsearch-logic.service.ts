@@ -4,7 +4,7 @@ import { IWordSearchData } from '../shared/word-search-data';
 import { map } from 'rxjs/operators';
 import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
-import { selectWsData, selectHoveredWord } from '../store/wordsearch.selectors';
+import { selectWsData } from '../store/wordsearch.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class WordsearchLogicService {
 
   buildWordSearch(): Observable<IWordSearchData> {
     return this.store.select(selectWsData).pipe(
-      map((data) => {
+      map(data => {
         if (data) {
           return {
             grid: data.grid,
@@ -29,14 +29,14 @@ export class WordsearchLogicService {
 
   setBorderColor(positions: number[][], refs: ElementRef[]) {
     if (positions) {
-      positions.map((coords) => {
+      positions.map(coords => {
         const ref = refs.find(
-          (item) => item.nativeElement.id === `(${coords[0]},${coords[1]})`
+          item => item.nativeElement.id === `(${coords[0]},${coords[1]})`
         );
         ref.nativeElement.style.borderColor = '#304ffe';
       });
     } else {
-      refs.map((ele) => (ele.nativeElement.style.borderColor = 'white'));
+      refs.map(ele => (ele.nativeElement.style.borderColor = 'white'));
     }
   }
 

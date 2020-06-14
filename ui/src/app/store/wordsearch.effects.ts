@@ -15,7 +15,7 @@ export class WordsearchEffects {
       withLatestFrom(this.store.select(selectWsParams)),
       mergeMap(([action, params]) =>
         this.dataService.getWordSearch(params).pipe(
-          map((data) => {
+          map(data => {
             return FetchWordsearchSuccess(data);
           })
         )

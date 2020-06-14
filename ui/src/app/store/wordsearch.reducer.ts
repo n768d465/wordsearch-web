@@ -31,14 +31,14 @@ const reducer = createReducer(
   }),
   on(MouseHoveredOnWord, (state, payload) => {
     const coordinates = state.data.wordConfigurationData.find(
-      (w) => payload.word === w.word
+      w => payload.word === w.word
     );
     return {
       ...state,
       hoveredWord: { word: payload.word, coordinates: coordinates.positions },
     };
   }),
-  on(MouseLeaveOnWord, (state) => {
+  on(MouseLeaveOnWord, state => {
     return { ...state, hoveredWord: { word: '', coordinates: [] } };
   })
 );

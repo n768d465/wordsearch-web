@@ -27,7 +27,7 @@ export class FormDialogComponent implements OnInit {
 
   ngOnInit() {
     this.wordsearchFormData$ = this.store.select(selectWsParams).pipe(
-      tap((data) => {
+      tap(data => {
         this.wordsearchForm = this.fb.group({
           wordsearchSize: [data.wordsearchSize, gridSizeValidator()],
           minWordLength: [data.minWordLength],
