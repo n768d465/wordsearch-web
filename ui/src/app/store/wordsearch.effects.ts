@@ -23,9 +23,5 @@ export class WordsearchEffects {
     )
   );
 
-  constructor(
-    private actions$: Actions,
-    private dataService: WordsearchDataService,
-    private store: Store<AppState>
-  ) {}
+  constructor(private actions$: Actions, private dataService: WordsearchDataService, private store: Store<AppState>) {}
 }

@@ -27,13 +27,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatListModule } from '@angular/material/list';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    WordsearchComponent,
-    GridComponent,
-    BankComponent,
-    NavbarComponent,
-  ],
+  declarations: [AppComponent, WordsearchComponent, GridComponent, BankComponent, NavbarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

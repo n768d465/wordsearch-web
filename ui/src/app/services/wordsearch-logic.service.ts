@@ -30,9 +30,7 @@ export class WordsearchLogicService {
   setBorderColor(positions: number[][], refs: ElementRef[]) {
     if (positions) {
       positions.map(coords => {
-        const ref = refs.find(
-          item => item.nativeElement.id === `(${coords[0]},${coords[1]})`
-        );
+        const ref = refs.find(item => item.nativeElement.id === `(${coords[0]},${coords[1]})`);
         ref.nativeElement.style.borderColor = '#304ffe';
       });
     } else {

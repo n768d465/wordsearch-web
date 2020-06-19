@@ -15,10 +15,7 @@ import { IWordSearchData } from 'src/app/shared/word-search-data';
 export class WordsearchComponent implements OnInit {
   wordSearchData$: Observable<IWordSearchData>;
   showWordsOnly: boolean = false;
-  constructor(
-    private store: Store<AppState>,
-    public logicService: WordsearchLogicService
-  ) {}
+  constructor(private store: Store<AppState>, public logicService: WordsearchLogicService) {}
 
   ngOnInit() {
     this.buildWordSearch();

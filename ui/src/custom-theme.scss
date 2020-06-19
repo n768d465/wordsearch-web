@@ -18,11 +18,7 @@ $wordsearch-ui-accent: mat-palette($mat-pink, A200, A100, A400);
 $wordsearch-ui-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$wordsearch-ui-theme: mat-light-theme(
-  $wordsearch-ui-primary,
-  $wordsearch-ui-accent,
-  $wordsearch-ui-warn
-);
+$wordsearch-ui-theme: mat-light-theme($wordsearch-ui-primary, $wordsearch-ui-accent, $wordsearch-ui-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component

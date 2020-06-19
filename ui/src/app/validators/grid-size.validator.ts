@@ -30,16 +30,14 @@ export function gridSizeValidator(): ValidatorFn {
       if (minWordLength > value) {
         return {
           gridSizeValidator: {
-            value:
-              'Wordsearch size must be greater than or equal to the min word length.',
+            value: 'Wordsearch size must be greater than or equal to the min word length.',
           },
         };
       }
       if (value < maxWordLength) {
         return {
           gridSizeValidator: {
-            value:
-              'Wordsearch size must greater than or equal to the max word length.',
+            value: 'Wordsearch size must greater than or equal to the max word length.',
           },
         };
       }

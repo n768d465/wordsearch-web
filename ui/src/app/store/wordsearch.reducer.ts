@@ -6,10 +6,7 @@ import {
   MouseHoveredOnWord,
   MouseLeaveOnWord,
 } from './wordsearch.actions';
-import {
-  initialWordSearchParamsState,
-  WordSearchParamsState,
-} from './wordsearch.state';
+import { initialWordSearchParamsState, WordSearchParamsState } from './wordsearch.state';
 
 const reducer = createReducer(
   initialWordSearchParamsState,
@@ -30,9 +27,7 @@ const reducer = createReducer(
     return { ...state, params };
   }),
   on(MouseHoveredOnWord, (state, payload) => {
-    const coordinates = state.data.wordConfigurationData.find(
-      w => payload.word === w.word
-    );
+    const coordinates = state.data.wordConfigurationData.find(w => payload.word === w.word);
     return {
       ...state,
       hoveredWord: { word: payload.word, coordinates: coordinates.positions },
@@ -43,9 +38,6 @@ const reducer = createReducer(
   })
 );
 
-export function wordsearchReducer(
-  state: WordSearchParamsState,
-  action: Action
-) {
+export function wordsearchReducer(state: WordSearchParamsState, action: Action) {
   return reducer(state, action);
 }
