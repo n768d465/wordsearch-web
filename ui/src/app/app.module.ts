@@ -25,6 +25,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [AppComponent, WordsearchComponent, GridComponent, BankComponent, NavbarComponent],
@@ -39,6 +40,7 @@ import { MatListModule } from '@angular/material/list';
     MatDialogModule,
     MatInputModule,
     MatButtonModule,
+    MatSelectModule,
     MatCheckboxModule,
     DialogModule,
     MatProgressSpinnerModule,

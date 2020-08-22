@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(
       SaveWordsearchParams({
+        category: 'Animals',
         wordsearchSize: '10',
         minWordLength: '3',
         maxWordLength: '7',

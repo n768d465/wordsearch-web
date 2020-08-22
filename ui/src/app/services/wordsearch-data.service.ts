@@ -15,8 +15,13 @@ export class WordsearchDataService {
     const params = new HttpParams()
       .set('dim', wsParams.wordsearchSize)
       .set('min_word_length', wsParams.minWordLength)
-      .set('max_word_length', wsParams.maxWordLength);
+      .set('max_word_length', wsParams.maxWordLength)
+      .set('category', wsParams.category);
 
     return this.http.get<IWordSearchParams>(this.url, { params });
+  }
+
+  getCategories(): Observable<any> {
+    return this.http.get(`${this.url}/categories`);
   }
 }

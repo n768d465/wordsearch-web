@@ -9,6 +9,7 @@ import { selectWsParams } from 'src/app/store/wordsearch.selectors';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { SaveWordsearchParams } from 'src/app/store/wordsearch.actions';
+import { WordsearchDataService } from 'src/app/services/wordsearch-data.service';
 
 @Component({
   selector: 'wordsearch-form',
@@ -17,12 +18,15 @@ import { SaveWordsearchParams } from 'src/app/store/wordsearch.actions';
 })
 export class FormDialogComponent implements OnInit {
   wordsearchFormData$: Observable<IWordSearchParams>;
+  categories$: Observable<string[]>;
   wordsearchForm: FormGroup;
+  categoryData: string[];
 
   constructor(
     private store: Store<AppState>,
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<FormDialogComponent>
+    private dialogRef: MatDialogRef<FormDialogComponent>,
+    private dataService: WordsearchDataService
   ) {}
 
   ngOnInit() {
@@ -32,7 +36,14 @@ export class FormDialogComponent implements OnInit {
           wordsearchSize: [data.wordsearchSize, gridSizeValidator()],
           minWordLength: [data.minWordLength],
           maxWordLength: [data.maxWordLength],
+          category: [data.category],
         });
+      })
+    );
+
+    this.categories$ = this.dataService.getCategories().pipe(
+      tap(categories => {
+        this.categoryData = categories;
       })
     );
   }
@@ -48,6 +59,7 @@ export class FormDialogComponent implements OnInit {
           wordsearchSize: this.wordsearchForm.get('wordsearchSize').value,
           minWordLength: this.wordsearchForm.get('minWordLength').value,
           maxWordLength: this.wordsearchForm.get('maxWordLength').value,
+          category: this.wordsearchForm.get('category').value,
         })
       );
       this.dialogRef.close();
