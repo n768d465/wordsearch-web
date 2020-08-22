@@ -13,7 +13,8 @@ flask_cors="*"
 webargs="*"
 flask_restful="*"
 requests="*"
-Wordsearch-Generator = {version = "*", path='./packages/Wordsearch_Generator-0.1.4-py3-none-any.whl'}
+Wordsearch-Generator = {version = "*", path='../../wordsearch-gen'}
+Wordsearch-List = {version = "*", path='../../wordsearch-list'}
 
 [pipenv]
 allow_prereleases = true
