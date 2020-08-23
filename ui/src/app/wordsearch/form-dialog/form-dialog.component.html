@@ -19,11 +19,11 @@
       <mat-label>Max Word Length</mat-label>
       <input matInput formControlName="maxWordLength" />
     </mat-form-field>
-    <div class="form-row">
-      <button mat-raised-button (click)="onSave()">Save</button>
-      <button mat-raised-button (click)="onClose()">
+    <div>
+      <button mat-button color="primary" (click)="onClose()">
         Close
       </button>
+      <button mat-button color="primary" (click)="onSave()">Save</button>
     </div>
   </form>
 </div>
