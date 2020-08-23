@@ -12,4 +12,8 @@
 
 .bank-item {
   cursor: pointer;
+
+  &:hover {
+    color: #304ffe;
+  }
 }
