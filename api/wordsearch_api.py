@@ -31,7 +31,7 @@ class WordsearchApi(Resource):
 
 class WordsearchCategories(Resource):
     def get(self):
-        return list(ws_gen.sample_placeable_word.word_list.keys())
+        return sorted(list(ws_gen.sample_placeable_word.word_list.keys()))
 
 
 api.add_resource(WordsearchApi, "/")
