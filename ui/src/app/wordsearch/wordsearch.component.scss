@@ -4,3 +4,19 @@
   align-items: center;
   height: 100%;
 }
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bank-container {
+  margin-top: 24px;
+  position: relative;
+  left: 12px;
+}
+
+.ws-button {
+  width: 85vh;
+  border-radius: 0;
+}
