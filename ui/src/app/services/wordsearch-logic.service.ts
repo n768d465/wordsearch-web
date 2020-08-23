@@ -4,7 +4,7 @@ import { IWordSearchData } from '../shared/word-search-data';
 import { map } from 'rxjs/operators';
 import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
-import { selectWsData } from '../store/wordsearch.selectors';
+import { selectWsData, selectWsParams } from '../store/wordsearch.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +25,10 @@ export class WordsearchLogicService {
         }
       })
     );
+  }
+
+  getCurrentCategory(): Observable<string> {
+    return this.store.select(selectWsParams).pipe(map(params => params.category));
   }
 
   setBorderColor(positions: number[][], refs: ElementRef[]) {

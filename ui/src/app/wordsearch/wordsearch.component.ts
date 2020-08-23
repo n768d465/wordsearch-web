@@ -10,15 +10,17 @@ import { IWordSearchData } from 'src/app/shared/word-search-data';
 @Component({
   selector: 'app-wordsearch',
   templateUrl: './wordsearch.component.html',
-  styleUrls: ['./wordsearch.component.css'],
+  styleUrls: ['./wordsearch.component.scss'],
 })
 export class WordsearchComponent implements OnInit {
   wordSearchData$: Observable<IWordSearchData>;
   showWordsOnly: boolean = false;
+  currentCategory: string;
   constructor(private store: Store<AppState>, public logicService: WordsearchLogicService) {}
 
   ngOnInit() {
     this.buildWordSearch();
+    this.logicService.getCurrentCategory().subscribe(cat => (this.currentCategory = cat));
   }
 
   buildWordSearch() {

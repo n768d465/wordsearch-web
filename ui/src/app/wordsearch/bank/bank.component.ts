@@ -6,7 +6,7 @@ import { MouseHoveredOnWord, MouseLeaveOnWord } from 'src/app/store/wordsearch.a
 @Component({
   selector: 'wordsearch-bank',
   templateUrl: './bank.component.html',
-  styleUrls: ['./bank.component.css'],
+  styleUrls: ['./bank.component.scss'],
 })
 export class BankComponent {
   @Input() bank: string[];

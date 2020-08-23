@@ -5,7 +5,7 @@ import { FormDialogComponent } from '../form-dialog/form-dialog.component';
 @Component({
   selector: 'ws-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
   constructor(public dialog: MatDialog) {}

@@ -26,6 +26,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [AppComponent, WordsearchComponent, GridComponent, BankComponent, NavbarComponent],
@@ -40,13 +41,14 @@ import { MatSelectModule } from '@angular/material/select';
     MatDialogModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule,
     MatCheckboxModule,
     DialogModule,
     MatProgressSpinnerModule,
     MatListModule,
     CommonModule,
+    MatSelectModule,
     FlexLayoutModule,
+    MatFormFieldModule,
     EffectsModule.forRoot([]),
     StoreModule.forFeature('wsState', wordsearchReducer),
     EffectsModule.forFeature([WordsearchEffects]),

@@ -1,7 +1,6 @@
 .grid-container {
-  /* font-family: "B612 Mono", monospace; */
-  font-family: 'Roboto';
   border: 1px solid;
+  padding: 1px;
   width: 85vh;
   height: 85vh;
   overflow: hidden;
@@ -21,7 +20,6 @@
   border: 1px solid;
   border-radius: 50px;
   border-color: white;
-  font-family: 'Muli';
 }
 
 .spinner-container {

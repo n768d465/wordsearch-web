@@ -1,7 +1,7 @@
 <ng-container *ngIf="categories$ | async"></ng-container>
 <div *ngIf="wordsearchFormData$ | async" mat-dialog-content>
   <form [formGroup]="wordsearchForm">
-    <mat-form-field>
+    <mat-form-field class="form-field">
       <mat-label>Category</mat-label>
       <select matNativeControl formControlName="category">
         <option *ngFor="let category of categoryData" [value]="category">{{ category }}</option>

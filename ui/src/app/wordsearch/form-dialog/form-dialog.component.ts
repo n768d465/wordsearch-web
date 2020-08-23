@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { IWordSearchParams } from 'src/app/shared/word-search-form-data';
@@ -14,7 +14,7 @@ import { WordsearchDataService } from 'src/app/services/wordsearch-data.service'
 @Component({
   selector: 'wordsearch-form',
   templateUrl: './form-dialog.component.html',
-  styleUrls: ['./form-dialog.component.css'],
+  styleUrls: ['./form-dialog.component.scss'],
 })
 export class FormDialogComponent implements OnInit {
   wordsearchFormData$: Observable<IWordSearchParams>;

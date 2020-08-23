@@ -10,7 +10,7 @@ import { IHoveredWord } from 'src/app/shared/word-search-data';
 @Component({
   selector: 'wordsearch-grid',
   templateUrl: './grid.component.html',
-  styleUrls: ['./grid.component.css'],
+  styleUrls: ['./grid.component.scss'],
 })
 export class GridComponent {
   @Input() gridData: string[][];
