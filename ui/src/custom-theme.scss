@@ -10,6 +10,7 @@
 $custom-typography: mat-typography-config(
   $font-family: 'Open Sans',
   $subheading-1: mat-typography-level(24px, 31px, 600),
+  $body-1: mat-typography-level(16px, 24px, 500),
 );
 @include angular-material-typography($custom-typography);
 
@@ -30,11 +31,8 @@ $wordsearch-ui-theme: mat-light-theme($wordsearch-ui-primary, $wordsearch-ui-acc
 // that you are using.
 @include angular-material-theme($wordsearch-ui-theme);
 
-.mat-h4 {
-  margin: 0;
-}
-
-.mat-form-field-label {
-  margin: 0;
-  padding-bottom: 2px;
+.mat {
+  &-form-field-label {
+    padding-bottom: 2px;
+  }
 }

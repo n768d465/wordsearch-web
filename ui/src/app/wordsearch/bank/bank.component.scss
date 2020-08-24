@@ -1,19 +1,20 @@
-.bank-items {
-  list-style-type: none;
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  align-items: center;
-}
+@import '../../../styles';
 
-.bank-header {
-  align-items: center;
-}
+.bank {
+  &-items {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    align-items: center;
+  }
 
-.bank-item {
-  cursor: pointer;
+  &-item {
+    font-size: 16px;
+    cursor: pointer;
 
-  &:hover {
-    color: #304ffe;
+    &:hover {
+      color: $highlight-color;
+    }
   }
 }
