@@ -15,23 +15,20 @@
       <mat-form-field class="form-field">
         <mat-label>Wordsearch Size</mat-label>
         <input matInput formControlName="wordsearchSize" />
-        <mat-error *ngIf="wordsearchForm.controls.wordsearchSize.errors?.gridSizeValidator">
-          {{ wordsearchForm.controls.wordsearchSize.errors.gridSizeValidator.value }}</mat-error
-        >
+        <div class="form-error" *ngIf="wordsearchForm?.errors?.gridSizeValidator?.value">
+          {{ wordsearchForm.errors.gridSizeValidator.value }}
+        </div>
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Min Word Length</mat-label>
         <input matInput formControlName="minWordLength" />
-        <mat-error *ngIf="wordsearchForm.controls.minWordLength.errors?.wordLengthValidator">
-          {{ wordsearchForm.controls.minWordLength.errors.wordLengthValidator.value }}</mat-error
-        >
+        <div class="form-error" *ngIf="wordsearchForm.errors?.minWordLengthValidator">
+          {{ wordsearchForm.errors.minWordLengthValidator.value }}
+        </div>
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Max Word Length</mat-label>
         <input matInput formControlName="maxWordLength" />
-        <mat-error *ngIf="wordsearchForm.controls.maxWordLength.errors?.wordLengthValidator">
-          {{ wordsearchForm.controls.maxWordLength.errors.wordLengthValidator.value }}</mat-error
-        >
       </mat-form-field>
       <mat-dialog-actions align="end">
         <button mat-button color="primary" (click)="onClose()">

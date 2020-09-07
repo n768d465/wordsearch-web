@@ -32,14 +32,15 @@ export class FormDialogComponent implements OnInit {
   ngOnInit() {
     this.wordsearchFormData$ = this.store.select(selectWsParams).pipe(
       tap(data => {
-        this.wordsearchForm = this.fb.group({
-          wordsearchSize: [data.wordsearchSize, gridSizeValidator()],
-          minWordLength: [data.minWordLength, wordLengthValidator('minimum')],
-          maxWordLength: [data.maxWordLength, wordLengthValidator('maximum')],
-          category: [data.category],
-        });
-
-        // this.wordsearchForm.valueChanges.subscribe(() => this.wordsearchForm.updateValueAndValidity());
+        this.wordsearchForm = this.fb.group(
+          {
+            wordsearchSize: [data.wordsearchSize],
+            minWordLength: [data.minWordLength],
+            maxWordLength: [data.maxWordLength],
+            category: [data.category],
+          },
+          { validators: [gridSizeValidator(), wordLengthValidator()] }
+        );
       })
     );
 

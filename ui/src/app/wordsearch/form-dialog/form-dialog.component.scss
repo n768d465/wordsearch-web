@@ -2,12 +2,6 @@ mat-dialog-content {
   overflow: visible;
 }
 
-.error-msg {
-  color: red;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
 .ng-invalid:not(form) {
   border-color: red;
 }
@@ -25,5 +19,9 @@ mat-dialog-content {
 
   &-field {
     width: 100%;
+  }
+
+  &-error {
+    color: red;
   }
 }

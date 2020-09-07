@@ -1,11 +1,12 @@
-import { ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { ValidatorFn, AbstractControl, ValidationErrors, FormGroup } from '@angular/forms';
 
 export function gridSizeValidator(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors => {
-    if (!control) {
+  return (formGroup: FormGroup): ValidationErrors => {
+    if (!formGroup) {
       return null;
     }
-    const value = Number(control.value);
+    const gridSize = formGroup.get('wordsearchSize');
+    const value = Number(gridSize.value);
 
     if (!value) {
       return {
@@ -14,7 +15,6 @@ export function gridSizeValidator(): ValidatorFn {
         },
       };
     }
-
     if (value < 3) {
       return {
         gridSizeValidator: {
@@ -23,86 +23,58 @@ export function gridSizeValidator(): ValidatorFn {
       };
     }
 
-    const parent = control.parent;
-    if (parent) {
-      const maxWordLength = Number(parent.get('maxWordLength').value);
-      const minWordLength = Number(parent.get('minWordLength').value);
-      if (minWordLength > value) {
-        return {
-          gridSizeValidator: {
-            value: 'Wordsearch size must be greater than or equal to the min word length.',
-          },
-        };
-      }
-      if (value < maxWordLength) {
-        return {
-          gridSizeValidator: {
-            value: 'Wordsearch size must greater than or equal to the max word length.',
-          },
-        };
-      }
+    const maxWordLength = Number(formGroup.get('maxWordLength').value);
+    const minWordLength = Number(formGroup.get('minWordLength').value);
+    if (minWordLength > value) {
+      return {
+        gridSizeValidator: {
+          value: 'Wordsearch size must be greater than or equal to the min word length.',
+        },
+      };
+    }
+    if (value < maxWordLength) {
+      return {
+        gridSizeValidator: {
+          value: 'Wordsearch size must greater than or equal to the max word length.',
+        },
+      };
     }
 
     return null;
   };
 }
 
-export function wordLengthValidator(type: string): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors => {
-    if (!control) {
+export function wordLengthValidator(): ValidatorFn {
+  return (formGroup: FormGroup): ValidationErrors => {
+    if (!formGroup) {
       return null;
     }
+    const maxWordLength = Number(formGroup.get('maxWordLength').value);
+    const minWordLength = Number(formGroup.get('minWordLength').value);
 
-    const value = Number(control.value);
-
-    if (value < 3) {
+    if (minWordLength < 3) {
       return {
-        wordLengthValidator: {
+        minWordLengthValidator: {
           value: 'Words must be at least 3 letters long.',
         },
       };
     }
 
-    const parent = control.parent;
-
-    if (parent) {
-      const gridSize = Number(parent.get('wordsearchSize').value);
-      if (type === 'minimum') {
-        const maxWordLength = Number(parent.get('maxWordLength').value);
-        if (control.value > maxWordLength) {
-          return {
-            wordLengthValidator: {
-              value: 'The minimum word length must be smaller than the maximum word length',
-            },
-          };
-        }
-
-        if (control.value > gridSize) {
-          return {
-            wordLengthValidator: {
-              value: 'The minimum word length must be smaller than the wordsearch size.',
-            },
-          };
-        }
-      }
-      if (type === 'maximum') {
-        const minWordLength = parent.get('minWordLength');
-        if (control.value < minWordLength.value) {
-          return {
-            wordLengthValidator: {
-              value: 'The maximum word length must be larger than the minimum word length',
-            },
-          };
-        }
-        if (control.value < gridSize) {
-          return {
-            wordLengthValidator: {
-              value: 'The maximum word length must be larger than the wordsearch size.',
-            },
-          };
-        }
-      }
+    if (maxWordLength < 3) {
+      return {
+        maxWordLengthValidator: {
+          value: 'Words must be at least 3 letters long.',
+        },
+      };
     }
+    if (minWordLength > maxWordLength) {
+      return {
+        minWordLengthValidator: {
+          value: 'The minimum word length must be smaller than the maximum word length',
+        },
+      };
+    }
+
     return null;
   };
 }
