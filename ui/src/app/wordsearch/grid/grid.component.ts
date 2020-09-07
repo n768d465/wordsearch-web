@@ -1,10 +1,10 @@
-import { Component, Input, SimpleChanges, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { Component, Input, SimpleChanges, ViewChildren, QueryList, ElementRef, OnChanges, OnInit } from '@angular/core';
 import { WordsearchLogicService } from 'src/app/services/wordsearch-logic.service';
 import { AppState } from 'src/app/app.state';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectLoading, selectHoveredWord } from 'src/app/store/wordsearch.selectors';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { IHoveredWord } from 'src/app/shared/word-search-data';
 
 @Component({
@@ -12,10 +12,10 @@ import { IHoveredWord } from 'src/app/shared/word-search-data';
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss'],
 })
-export class GridComponent {
+export class GridComponent implements OnInit, OnChanges {
   @Input() gridData: string[][];
   isLoading$: Observable<boolean>;
-  cellHeight: any;
+  cellHeight: number;
 
   @ViewChildren('letters') letters: QueryList<ElementRef>;
 
@@ -26,12 +26,9 @@ export class GridComponent {
     this.store
       .select(selectHoveredWord)
       .pipe(
-        tap((highlightedWord: IHoveredWord) => {
-          if (highlightedWord?.coordinates.length) {
-            this.setBorderColor(highlightedWord.coordinates);
-          } else {
-            this.setBorderColor(null);
-          }
+        map((highlightedWord: IHoveredWord) => (highlightedWord ? highlightedWord.coordinates : [])),
+        tap((coordinaties: number[][]) => {
+          this.setBorderColor(coordinaties);
         })
       )
       .subscribe();
@@ -44,8 +41,7 @@ export class GridComponent {
   }
 
   setBorderColor = positions => {
-    if (this.letters) {
-      this.logicService.setBorderColor(positions, this.letters.toArray());
-    }
+    const letters: ElementRef<string>[] = this.letters?.toArray() ?? [];
+    this.logicService.setBorderColor(positions, letters);
   };
 }

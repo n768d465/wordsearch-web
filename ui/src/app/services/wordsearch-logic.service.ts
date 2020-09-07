@@ -5,6 +5,7 @@ import { map, filter } from 'rxjs/operators';
 import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
 import { selectWsData, selectWsParams } from '../store/wordsearch.selectors';
+import { BorderColors } from 'src/app/shared/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -28,13 +29,12 @@ export class WordsearchLogicService {
   }
 
   setBorderColor(positions: number[][], refs: ElementRef[]) {
-    if (positions) {
-      positions.map(coords => {
+    refs.forEach(ele => (ele.nativeElement.style.borderColor = BorderColors.Default));
+    if (positions?.length && refs?.length) {
+      positions.forEach(coords => {
         const ref = refs.find(item => item.nativeElement.id === `(${coords[0]},${coords[1]})`);
-        ref.nativeElement.style.borderColor = '#304ffe';
+        ref.nativeElement.style.borderColor = BorderColors.Highlighted;
       });
-    } else {
-      refs.map(ele => (ele.nativeElement.style.borderColor = 'white'));
     }
   }
 
