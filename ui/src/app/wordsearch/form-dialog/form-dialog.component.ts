@@ -2,11 +2,11 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { IWordSearchParams } from 'src/app/shared/word-search-form-data';
-import { gridSizeValidator } from 'src/app/validators/grid-size.validator';
+import { gridSizeValidator, wordLengthValidator } from 'src/app/validators/grid-size.validator';
 import { AppState } from 'src/app/app.state';
 import { Store } from '@ngrx/store';
 import { selectWsParams } from 'src/app/store/wordsearch.selectors';
-import { Observable } from 'rxjs';
+import { Observable, merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { SaveWordsearchParams } from 'src/app/store/wordsearch.actions';
 import { WordsearchDataService } from 'src/app/services/wordsearch-data.service';
@@ -34,10 +34,12 @@ export class FormDialogComponent implements OnInit {
       tap(data => {
         this.wordsearchForm = this.fb.group({
           wordsearchSize: [data.wordsearchSize, gridSizeValidator()],
-          minWordLength: [data.minWordLength],
-          maxWordLength: [data.maxWordLength],
+          minWordLength: [data.minWordLength, wordLengthValidator('minimum')],
+          maxWordLength: [data.maxWordLength, wordLengthValidator('maximum')],
           category: [data.category],
         });
+
+        // this.wordsearchForm.valueChanges.subscribe(() => this.wordsearchForm.updateValueAndValidity());
       })
     );
 
