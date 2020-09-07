@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { IWordSearchParams } from 'src/app/shared/word-search-form-data';
@@ -6,10 +6,11 @@ import { gridSizeValidator, wordLengthValidator } from 'src/app/validators/grid-
 import { AppState } from 'src/app/app.state';
 import { Store } from '@ngrx/store';
 import { selectWsParams } from 'src/app/store/wordsearch.selectors';
-import { Observable, merge } from 'rxjs';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { SaveWordsearchParams } from 'src/app/store/wordsearch.actions';
 import { WordsearchDataService } from 'src/app/services/wordsearch-data.service';
+import { CrossFieldErrorMatcher } from 'src/app/shared/error-matcher';
 
 @Component({
   selector: 'wordsearch-form',
@@ -21,6 +22,7 @@ export class FormDialogComponent implements OnInit {
   wordsearchForm: FormGroup;
   categories$: Observable<string[]>;
   categoryData: string[];
+  matcher: CrossFieldErrorMatcher;
 
   constructor(
     private store: Store<AppState>,
@@ -30,6 +32,7 @@ export class FormDialogComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.matcher = new CrossFieldErrorMatcher();
     this.wordsearchFormData$ = this.store.select(selectWsParams).pipe(
       tap(data => {
         this.wordsearchForm = this.fb.group(
