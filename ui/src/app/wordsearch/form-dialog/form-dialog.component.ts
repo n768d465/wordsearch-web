@@ -18,8 +18,8 @@ import { WordsearchDataService } from 'src/app/services/wordsearch-data.service'
 })
 export class FormDialogComponent implements OnInit {
   wordsearchFormData$: Observable<IWordSearchParams>;
-  categories$: Observable<string[]>;
   wordsearchForm: FormGroup;
+  categories$: Observable<string[]>;
   categoryData: string[];
 
   constructor(

@@ -12,7 +12,7 @@ export class NavbarComponent {
 
   openDialog(): void {
     this.dialog.open(FormDialogComponent, {
-      width: '500px',
+      width: '600px',
     });
   }
 }

@@ -24,6 +24,7 @@ class WordsearchApi(Resource):
                 "wordBank": list(ws_gen.bank),
                 "gridWordsOnly": ws_gen.grid_words_only,
                 "wordConfigurationData": ws_gen.ws_data,
+                "currentCategory": ws_gen.category,
             },
             {r"/*": {"origins": "*"}},
         )

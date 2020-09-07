@@ -3,7 +3,7 @@
   <div fxLayout="row" fxLayoutAlign="center">
     <div fxLayout="column">
       <div fxLayout="row" class="top-row">
-        <div>Category: {{ currentCategory }}</div>
+        <div>Category: {{ wordSearchData.currentCategory }}</div>
         <mat-checkbox (change)="switchGrids($event)">Show words only</mat-checkbox>
       </div>
       <div>

@@ -1,4 +1,5 @@
 export interface IWordSearchData {
+  currentCategory: string;
   grid: string[][];
   wordBank: string[];
   gridWordsOnly: string[][];

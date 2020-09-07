@@ -1,29 +1,35 @@
 <ng-container *ngIf="categories$ | async"></ng-container>
-<div *ngIf="wordsearchFormData$ | async" mat-dialog-content>
-  <form [formGroup]="wordsearchForm">
-    <mat-form-field class="form-field">
-      <mat-label>Category</mat-label>
-      <select matNativeControl formControlName="category">
-        <option *ngFor="let category of categoryData" [value]="category">{{ category }}</option>
-      </select>
-    </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>Wordsearch Size</mat-label>
-      <input matInput formControlName="wordsearchSize" />
-    </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>Min Word Length</mat-label>
-      <input matInput formControlName="minWordLength" />
-    </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>Max Word Length</mat-label>
-      <input matInput formControlName="maxWordLength" />
-    </mat-form-field>
-    <div>
-      <button mat-button color="primary" (click)="onClose()">
-        Close
-      </button>
-      <button mat-button color="primary" (click)="onSave()">Save</button>
-    </div>
-  </form>
-</div>
+<mat-dialog-content>
+  <div class="form-header">
+    <mat-icon class="form-icon">info</mat-icon>
+    Settings will take effect when a new wordsearch is requested.
+  </div>
+  <div *ngIf="wordsearchFormData$ | async">
+    <form [formGroup]="wordsearchForm">
+      <mat-form-field class="form-field">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category">
+          <mat-option *ngFor="let category of categoryData" [value]="category"> {{ category }} </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Wordsearch Size</mat-label>
+        <input matInput formControlName="wordsearchSize" />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Min Word Length</mat-label>
+        <input matInput formControlName="minWordLength" />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Max Word Length</mat-label>
+        <input matInput formControlName="maxWordLength" />
+      </mat-form-field>
+      <mat-dialog-actions align="end">
+        <button mat-button color="primary" (click)="onClose()">
+          Close
+        </button>
+        <button mat-button color="primary" (click)="onSave()">Save</button>
+      </mat-dialog-actions>
+    </form>
+  </div>
+</mat-dialog-content>

@@ -1,7 +1,7 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IWordSearchData } from '../shared/word-search-data';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
 import { selectWsData, selectWsParams } from '../store/wordsearch.selectors';
@@ -14,21 +14,17 @@ export class WordsearchLogicService {
 
   buildWordSearch(): Observable<IWordSearchData> {
     return this.store.select(selectWsData).pipe(
+      filter(data => !!data),
       map(data => {
-        if (data) {
-          return {
-            grid: data.grid,
-            gridWordsOnly: data.gridWordsOnly,
-            wordBank: data.wordBank,
-            wordConfigurationData: data.wordConfigurationData,
-          };
-        }
+        return {
+          grid: data.grid,
+          gridWordsOnly: data.gridWordsOnly,
+          wordBank: data.wordBank,
+          wordConfigurationData: data.wordConfigurationData,
+          currentCategory: data.currentCategory,
+        };
       })
     );
-  }
-
-  getCurrentCategory(): Observable<string> {
-    return this.store.select(selectWsParams).pipe(map(params => params.category));
   }
 
   setBorderColor(positions: number[][], refs: ElementRef[]) {
