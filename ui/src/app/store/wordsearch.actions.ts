@@ -7,3 +7,5 @@ export const FetchWordsearchSuccess = createAction('[Wordsearch] Fetch Wordsearc
 export const SaveWordsearchParams = createAction('[Wordsearch] Save Wordsearch Params', props<IWordSearchParams>());
 export const MouseHoveredOnWord = createAction('[Wordsearch] Mouse Hovered on Word', props<{ word: string }>());
 export const MouseLeaveOnWord = createAction('[Wordsearch] Mouse Leave on Word');
+export const GridItemsSelected = createAction('[Wordsearch] Grid Item Selected', props<{ text: string }>());
+export const ClearSelectedGridItems = createAction('[Wordsearch] Clear Selected Grid Items');
