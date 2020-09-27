@@ -27,6 +27,7 @@ export class GridComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() gridData: string[][];
   isLoading$: Observable<boolean>;
   cellHeight: number;
+  path: any[] = [];
 
   @ViewChild('draggable') draggable: ElementRef;
   @ViewChildren('letters') letters;
@@ -51,11 +52,23 @@ export class GridComponent implements OnInit, OnChanges, AfterViewInit {
       .pipe(
         switchMap((e: MouseEvent) => {
           return fromEvent(this.draggable.nativeElement, 'mousemove').pipe(
-            takeUntil(fromEvent(this.draggable.nativeElement, 'mouseup')),
+            takeUntil(
+              fromEvent(this.draggable.nativeElement, 'mouseup').pipe(
+                tap(() => {
+                  this.path = [];
+                  this.setBorderColor([]);
+                })
+              )
+            ),
+            takeUntil(fromEvent(this.draggable.nativeElement, 'mouseleave').pipe(tap(() => (this.path = [])))),
             distinct((e: MouseEvent) => e.target['id']),
             filter(e => !!e.target['id']),
-            tap((e: MouseEvent) => console.log('This is e: ', e.target['id']))
+            tap((e: MouseEvent) => (e.target['style'].borderColor = 'blue'))
           );
+        }),
+        tap(e => {
+          this.path.push(e.target['innerText']);
+          console.log(this.path);
         })
       )
       .subscribe();

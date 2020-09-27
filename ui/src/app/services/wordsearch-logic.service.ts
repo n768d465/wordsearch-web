@@ -30,11 +30,10 @@ export class WordsearchLogicService {
 
   setBorderColor(positions: number[][], refs: ElementRef[]) {
     refs.forEach(ele => (ele.nativeElement.style.borderColor = BorderColors.Default));
+    const coords = positions[0];
     if (positions?.length && refs?.length) {
-      positions.forEach(coords => {
-        const ref = refs.find(item => item.nativeElement.id === `(${coords[0]},${coords[1]})`);
-        ref.nativeElement.style.borderColor = BorderColors.Highlighted;
-      });
+      const ref = refs.find(item => item.nativeElement.id === `(${coords[0]},${coords[1]})`);
+      ref.nativeElement.style.borderColor = BorderColors.Highlighted;
     }
   }
 
