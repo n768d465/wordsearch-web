@@ -9,3 +9,8 @@ export const selectHoveredWord = createSelector(
   (state: WordSearchParamsState) => state.hoveredWord
 );
 export const selectWsParams = createSelector(selectWordsearchState, (state: WordSearchParamsState) => state.params);
+
+export const selectSelectedGridItems = createSelector(
+  selectWordsearchState,
+  (state: WordSearchParamsState) => state.selectedGridItems
+);

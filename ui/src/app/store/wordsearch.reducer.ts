@@ -5,6 +5,7 @@ import {
   SaveWordsearchParams,
   MouseHoveredOnWord,
   MouseLeaveOnWord,
+  GridItemsSelected,
 } from './wordsearch.actions';
 import { initialWordSearchParamsState, WordSearchParamsState } from './wordsearch.state';
 
@@ -35,6 +36,9 @@ const reducer = createReducer(
   }),
   on(MouseLeaveOnWord, state => {
     return { ...state, hoveredWord: { word: '', coordinates: [] } };
+  }),
+  on(GridItemsSelected, (state, payload) => {
+    return { ...state, selectedGridItems: payload.text };
   })
 );
 

@@ -16,5 +16,9 @@
     &:hover {
       color: $highlight-color;
     }
+
+    &-found {
+      text-decoration: line-through;
+    }
   }
 }

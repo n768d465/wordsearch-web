@@ -17,6 +17,7 @@ import { fromEvent, Observable } from 'rxjs';
 import { selectLoading, selectHoveredWord } from 'src/app/store/wordsearch.selectors';
 import { tap, map, takeUntil, switchMap, distinct, distinctUntilChanged, filter } from 'rxjs/operators';
 import { IHoveredWord } from 'src/app/shared/word-search-data';
+import { GridItemsSelected } from 'src/app/store/wordsearch.actions';
 
 @Component({
   selector: 'wordsearch-grid',
@@ -50,12 +51,12 @@ export class GridComponent implements OnInit, OnChanges, AfterViewInit {
   ngAfterViewInit() {
     fromEvent(this.draggable.nativeElement, 'mousedown')
       .pipe(
-        switchMap((e: MouseEvent) => {
+        switchMap(() => {
           return fromEvent(this.draggable.nativeElement, 'mousemove').pipe(
             takeUntil(
               fromEvent(this.draggable.nativeElement, 'mouseup').pipe(
                 tap(() => {
-                  console.log(this.path);
+                  this.store.dispatch(GridItemsSelected({ text: this.path }));
                   this.path = '';
                   this.setBorderColor([]);
                 })
