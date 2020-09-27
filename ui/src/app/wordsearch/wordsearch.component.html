@@ -1,26 +1,26 @@
 <ws-navbar></ws-navbar>
-<ng-container *ngIf="wordSearchData$ | async as wordSearchData; else spinner">
+<ng-container *ngIf="wordSearchData$ | async as wordSearchData">
   <div fxLayout="row" fxLayoutAlign="center">
     <div fxLayout="column">
       <div fxLayout="row" class="top-row">
         <div>Category: {{ wordSearchData.currentCategory }}</div>
         <mat-checkbox (change)="switchGrids($event)">Show words only</mat-checkbox>
       </div>
-      <div>
+      <div #draggable>
         <wordsearch-grid [gridData]="showWordsOnly ? wordSearchData.gridWordsOnly : wordSearchData.grid">
         </wordsearch-grid>
-        <button class="ws-button" mat-raised-button color="primary" (click)="buildWordSearch()">
-          New Wordsearch
-        </button>
       </div>
+      <button class="ws-button" mat-raised-button color="primary" (click)="buildWordSearch()">
+        New Wordsearch
+      </button>
     </div>
     <div class="bank-container">
       <wordsearch-bank class="ws-bank" [bank]="wordSearchData.wordBank"> </wordsearch-bank>
     </div>
   </div>
 </ng-container>
-<ng-template #spinner>
+<!-- <ng-template #spinner>
   <div class="spinner">
     <mat-spinner></mat-spinner>
   </div>
-</ng-template>
+</ng-template> -->

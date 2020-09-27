@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { WordsearchLogicService } from 'src/app/services/wordsearch-logic.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
