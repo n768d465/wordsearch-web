@@ -58,7 +58,6 @@ export class GridComponent implements OnInit, OnChanges, AfterViewInit {
                 tap(() => {
                   this.store.dispatch(GridItemsSelected({ text: this.path }));
                   this.path = '';
-                  this.setBorderColor([]);
                 })
               )
             ),

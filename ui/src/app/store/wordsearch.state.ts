@@ -7,6 +7,7 @@ export interface WordSearchParamsState {
   data: IWordSearchData;
   hoveredWord: IHoveredWord;
   selectedGridItems: string;
+  highlightedPositions: string[];
 }
 
 export const initialWordSearchParamsState = {
@@ -15,4 +16,5 @@ export const initialWordSearchParamsState = {
   data: null,
   hoveredWord: null,
   selectedGridItems: '',
+  highlightedPositions: [],
 };

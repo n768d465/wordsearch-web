@@ -6,8 +6,10 @@ import {
   MouseHoveredOnWord,
   MouseLeaveOnWord,
   GridItemsSelected,
+  AddHighlightedGriditems,
 } from './wordsearch.actions';
 import { initialWordSearchParamsState, WordSearchParamsState } from './wordsearch.state';
+import _ from 'lodash';
 
 const reducer = createReducer(
   initialWordSearchParamsState,
@@ -28,17 +30,32 @@ const reducer = createReducer(
     return { ...state, params };
   }),
   on(MouseHoveredOnWord, (state, payload) => {
-    const coordinates = state.data.wordConfigurationData.find(w => payload.word === w.word);
+    const wordData = state.data.wordConfigurationData.find(w => payload.word === w.word);
+    const positions = wordData.positions[0];
+    const highlightedPositions = [...state.highlightedPositions, positions];
     return {
       ...state,
-      hoveredWord: { word: payload.word, coordinates: coordinates.positions },
+      hoveredWord: { word: payload.word, coordinates: wordData.positions },
+      highlightedPositions,
     };
   }),
-  on(MouseLeaveOnWord, state => {
-    return { ...state, hoveredWord: { word: '', coordinates: [] } };
+  on(MouseLeaveOnWord, (state, payload) => {
+    const wordData = state.data.wordConfigurationData.find(w => payload.word === w.word);
+    const positions = wordData.positions[0];
+    const newPositions = _.filter(state.highlightedPositions, pos => !_.isEqual(pos, positions));
+    return { ...state, hoveredWord: { word: '', coordinates: [] }, highlightedPositions: newPositions };
   }),
   on(GridItemsSelected, (state, payload) => {
     return { ...state, selectedGridItems: payload.text };
+  }),
+  on(AddHighlightedGriditems, (state, payload) => {
+    const wordData = state.data.wordConfigurationData.find(w => payload.word === w.word);
+    const positions = wordData.positions;
+    const highlightedPositions = [...state.highlightedPositions, ...positions];
+    return {
+      ...state,
+      highlightedPositions,
+    };
   })
 );
 

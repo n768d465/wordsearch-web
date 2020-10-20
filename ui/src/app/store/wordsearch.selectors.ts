@@ -14,3 +14,8 @@ export const selectSelectedGridItems = createSelector(
   selectWordsearchState,
   (state: WordSearchParamsState) => state.selectedGridItems
 );
+
+export const selectHighlightedPositions = createSelector(
+  selectWordsearchState,
+  (state: WordSearchParamsState) => state.highlightedPositions
+);

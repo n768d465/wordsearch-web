@@ -6,6 +6,15 @@ export const FetchWordsearch = createAction('[Wordsearch] Fetch Wordsearch');
 export const FetchWordsearchSuccess = createAction('[Wordsearch] Fetch Wordsearch Success', props<IWordSearchData>());
 export const SaveWordsearchParams = createAction('[Wordsearch] Save Wordsearch Params', props<IWordSearchParams>());
 export const MouseHoveredOnWord = createAction('[Wordsearch] Mouse Hovered on Word', props<{ word: string }>());
-export const MouseLeaveOnWord = createAction('[Wordsearch] Mouse Leave on Word');
+export const MouseLeaveOnWord = createAction('[Wordsearch] Mouse Leave on Word', props<{ word: string }>());
 export const GridItemsSelected = createAction('[Wordsearch] Grid Item Selected', props<{ text: string }>());
 export const ClearSelectedGridItems = createAction('[Wordsearch] Clear Selected Grid Items');
+
+export const AddHighlightedGriditems = createAction(
+  '[Wordsearch] Add Highlighted Grid Items',
+  props<{ word: string }>()
+);
+export const RemoveHighlightedGriditems = createAction(
+  '[Wordsearch] Remove Highlighted Grid Items',
+  props<{ positions: number[][] }>()
+);
