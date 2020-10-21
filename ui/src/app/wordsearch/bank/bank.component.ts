@@ -26,7 +26,6 @@ export class BankComponent {
         tap(item => {
           this.store.dispatch(AddHighlightedGriditems({ word: item.nativeElement.innerText }));
           item.nativeElement.classList.add('bank-item-found');
-          console.log(item.nativeElement);
         })
       )
       .subscribe();

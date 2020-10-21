@@ -28,14 +28,16 @@ export class WordsearchLogicService {
     );
   }
 
-  setBorderColor(positions: number[][], refs: ElementRef[]) {
+  setBorderColors(coords: number[][], refs: ElementRef[]) {
     refs.forEach(ele => (ele.nativeElement.style.borderColor = BorderColors.Default));
-    if (positions?.length && refs?.length) {
-      positions.forEach(coords => {
+    if (coords?.length && refs?.length) {
         const ref = refs.find(item => item.nativeElement.id === `(${coords[0]},${coords[1]})`);
-        ref.nativeElement.style.borderColor = BorderColors.Highlighted;
-      });
+        this.setBorderColor(ref)
     }
+  }
+
+  setBorderColor(ref: ElementRef) {
+    ref.nativeElement.style.borderColor = BorderColors.Highlighted;
   }
 
   computeCellHeight = (grid: string[][]): number => 100 / grid.length;

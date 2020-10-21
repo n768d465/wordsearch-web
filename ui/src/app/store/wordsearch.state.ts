@@ -1,11 +1,11 @@
 import { IWordSearchParams } from '../shared/word-search-form-data';
-import { IWordSearchData, IHoveredWord } from '../shared/word-search-data';
+import { IWordSearchData, IHoveredWord, IWordConfiguration } from '../shared/word-search-data';
 
 export interface WordSearchParamsState {
   isLoading: boolean;
   params: IWordSearchParams;
   data: IWordSearchData;
-  hoveredWord: IHoveredWord;
+  hoveredWord: IWordConfiguration;
   selectedGridItems: string;
   highlightedPositions: string[];
 }

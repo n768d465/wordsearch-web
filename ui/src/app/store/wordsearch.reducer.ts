@@ -31,19 +31,13 @@ const reducer = createReducer(
   }),
   on(MouseHoveredOnWord, (state, payload) => {
     const wordData = state.data.wordConfigurationData.find(w => payload.word === w.word);
-    const positions = wordData.positions[0];
-    const highlightedPositions = [...state.highlightedPositions, positions];
     return {
       ...state,
-      hoveredWord: { word: payload.word, coordinates: wordData.positions },
-      highlightedPositions,
+      hoveredWord: wordData
     };
   }),
   on(MouseLeaveOnWord, (state, payload) => {
-    const wordData = state.data.wordConfigurationData.find(w => payload.word === w.word);
-    const positions = wordData.positions[0];
-    const newPositions = _.filter(state.highlightedPositions, pos => !_.isEqual(pos, positions));
-    return { ...state, hoveredWord: { word: '', coordinates: [] }, highlightedPositions: newPositions };
+    return { ...state, hoveredWord: null};
   }),
   on(GridItemsSelected, (state, payload) => {
     return { ...state, selectedGridItems: payload.text };
