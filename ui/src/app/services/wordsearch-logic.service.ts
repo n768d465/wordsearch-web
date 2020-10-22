@@ -1,4 +1,4 @@
-import { Injectable, ElementRef } from '@angular/core';
+import { Injectable, ElementRef, Renderer2 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IWordSearchData } from '../shared/word-search-data';
 import { map, filter } from 'rxjs/operators';
@@ -28,16 +28,20 @@ export class WordsearchLogicService {
     );
   }
 
-  setBorderColors(coords: number[][], refs: ElementRef[]) {
-    refs.forEach(ele => (ele.nativeElement.style.borderColor = BorderColors.Default));
+  setBorderColors(coords: number[][], refs: ElementRef[], borderColor: BorderColors) {
+    // refs.forEach(ele => (ele.nativeElement.style.borderColor = BorderColors.Default));
     if (coords?.length && refs?.length) {
         const ref = refs.find(item => item.nativeElement.id === `(${coords[0]},${coords[1]})`);
-        this.setBorderColor(ref)
+        this.setBorderColor(ref, borderColor)
     }
   }
 
-  setBorderColor(ref: ElementRef) {
-    ref.nativeElement.style.borderColor = BorderColors.Highlighted;
+  setBorderByElementRef(refs: any[], borderColor: BorderColors){
+    refs.forEach(ref => this.setBorderColor(ref, borderColor));
+  }
+
+  setBorderColor(ref: ElementRef, borderColor: BorderColors) {
+    ref.nativeElement.style.borderColor = borderColor;
   }
 
   computeCellHeight = (grid: string[][]): number => 100 / grid.length;

@@ -5,11 +5,9 @@ import {
   SaveWordsearchParams,
   MouseHoveredOnWord,
   MouseLeaveOnWord,
-  GridItemsSelected,
-  AddHighlightedGriditems,
+  WordFoundSuccess,
 } from './wordsearch.actions';
 import { initialWordSearchParamsState, WordSearchParamsState } from './wordsearch.state';
-import _ from 'lodash';
 
 const reducer = createReducer(
   initialWordSearchParamsState,
@@ -39,17 +37,8 @@ const reducer = createReducer(
   on(MouseLeaveOnWord, (state, payload) => {
     return { ...state, hoveredWord: null};
   }),
-  on(GridItemsSelected, (state, payload) => {
-    return { ...state, selectedGridItems: payload.text };
-  }),
-  on(AddHighlightedGriditems, (state, payload) => {
-    const wordData = state.data.wordConfigurationData.find(w => payload.word === w.word);
-    const positions = wordData.positions;
-    const highlightedPositions = [...state.highlightedPositions, ...positions];
-    return {
-      ...state,
-      highlightedPositions,
-    };
+  on(WordFoundSuccess, (state, payload) => {
+    return {...state, foundWords: [...state.foundWords, payload.word]}
   })
 );
 

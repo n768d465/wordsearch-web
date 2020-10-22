@@ -3,7 +3,6 @@ import {
   Input,
   SimpleChanges,
   ViewChildren,
-  QueryList,
   ElementRef,
   OnChanges,
   OnInit,
@@ -14,10 +13,11 @@ import { WordsearchLogicService } from 'src/app/services/wordsearch-logic.servic
 import { AppState } from 'src/app/app.state';
 import { Store } from '@ngrx/store';
 import { fromEvent, Observable } from 'rxjs';
-import { selectLoading, selectHoveredWord } from 'src/app/store/wordsearch.selectors';
-import { tap, map, takeUntil, switchMap, distinct, distinctUntilChanged, filter, reduce, scan, mergeMap } from 'rxjs/operators';
-import { IHoveredWord, IWordConfiguration } from 'src/app/shared/word-search-data';
-import { GridItemsSelected } from 'src/app/store/wordsearch.actions';
+import { selectLoading, selectHoveredWord, selectWsData } from 'src/app/store/wordsearch.selectors';
+import { tap, map, takeUntil, switchMap, distinct, filter, scan } from 'rxjs/operators';
+import { IWordConfiguration } from 'src/app/shared/word-search-data';
+import { WordFoundSuccess } from 'src/app/store/wordsearch.actions';
+import { BorderColors } from 'src/app/shared/constants';
 
 @Component({
   selector: 'wordsearch-grid',
@@ -47,7 +47,7 @@ export class GridComponent implements OnInit, OnChanges, AfterViewInit {
           return highlightedWord?.positions[0] ?? []
         }),
         tap((coordinaties: number[]) => {
-          this.setBorderColors(coordinaties);
+          this.setBorderColors(coordinaties, BorderColors.Highlighted);
         })
       )
       .subscribe();
@@ -60,22 +60,37 @@ export class GridComponent implements OnInit, OnChanges, AfterViewInit {
           return fromEvent(this.draggable.nativeElement, 'mousemove').pipe(
             distinct((e: MouseEvent) => e.target['id']),
             filter(e => !!e.target['id']),
-            tap((e: MouseEvent) => {
+            map((e: MouseEvent) => {
               const ref = this.letters.toArray().find(item => item.nativeElement.id === e.target['id'])
-              this.logicService.setBorderColor(ref);
+              this.logicService.setBorderColor(ref, BorderColors.Highlighted);
+              return {refs: [ref], text: e.target['innerText']}
             }),
-            map(e => e.target['innerText']),
-            scan((acc, cur) => acc + cur),
+            scan((acc, cur) => ({refs: [...acc.refs, ...cur.refs], text: acc.text + cur.text})),
             takeUntil(fromEvent(this.draggable.nativeElement, 'mouseup')),
           );
         }),
-        switchMap(res => {
+        switchMap(text => {
           return fromEvent(this.draggable.nativeElement, 'mouseup').pipe(
-            tap(() => console.log('Mouse up: ', res))
+            tap(() => this.handleRendering(text))
           )
         })
       )
       .subscribe();
+  }
+
+  handleRendering(result: any): void {
+    this.store.select(selectWsData).pipe(
+      // map(params => params.wordBank),
+      map(data => {
+        const found = data.wordBank.includes(result.text) ? BorderColors.Highlighted : BorderColors.Default;
+        this.logicService.setBorderByElementRef(result.refs, found);
+        if(data.wordBank.includes(result.text)){
+          console.log(result);
+          this.store.dispatch(WordFoundSuccess({word: result.text}))
+        }
+      }),
+    )
+    .subscribe()
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -84,8 +99,8 @@ export class GridComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  setBorderColors = positions => {
+  setBorderColors(positions, color: BorderColors) {
     const letters: ElementRef<string>[] = this.letters?.toArray() ?? [];
-    this.logicService.setBorderColors(positions, letters);
+    this.logicService.setBorderColors(positions, letters, color);
   };
 }

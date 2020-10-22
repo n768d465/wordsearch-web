@@ -10,12 +10,7 @@ export const selectHoveredWord = createSelector(
 );
 export const selectWsParams = createSelector(selectWordsearchState, (state: WordSearchParamsState) => state.params);
 
-export const selectSelectedGridItems = createSelector(
+export const selectFoundWords = createSelector(
   selectWordsearchState,
-  (state: WordSearchParamsState) => state.selectedGridItems
-);
-
-export const selectHighlightedPositions = createSelector(
-  selectWordsearchState,
-  (state: WordSearchParamsState) => state.highlightedPositions
+  (state: WordSearchParamsState) => state.foundWords
 );

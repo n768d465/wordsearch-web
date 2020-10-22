@@ -1,10 +1,9 @@
 import { Component, ElementRef, Input, QueryList, ViewChildren } from '@angular/core';
 import { AppState } from 'src/app/app.state';
 import { Store } from '@ngrx/store';
-import { AddHighlightedGriditems, MouseHoveredOnWord, MouseLeaveOnWord } from 'src/app/store/wordsearch.actions';
-import { selectSelectedGridItems } from 'src/app/store/wordsearch.selectors';
-import { filter, map, tap } from 'rxjs/operators';
-import { NativeDateAdapter } from '@angular/material/core';
+import { MouseHoveredOnWord, MouseLeaveOnWord } from 'src/app/store/wordsearch.actions';
+import { selectFoundWords } from 'src/app/store/wordsearch.selectors';
+import { filter, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'wordsearch-bank',
@@ -19,13 +18,14 @@ export class BankComponent {
 
   ngOnInit() {
     this.store
-      .select(selectSelectedGridItems)
+      .select(selectFoundWords)
       .pipe(
-        map(items => this.bankItem?.toArray().find(word => word.nativeElement.innerText === items)),
-        filter(res => !!res),
-        tap(item => {
-          this.store.dispatch(AddHighlightedGriditems({ word: item.nativeElement.innerText }));
-          item.nativeElement.classList.add('bank-item-found');
+        filter(words => !!words),
+        tap(words => {
+          words.forEach(word => {
+            const wordRef = this.bankItem?.toArray().find(w => w.nativeElement.innerText === word)
+            wordRef.nativeElement.classList.add('bank-item-found')
+          })
         })
       )
       .subscribe();
