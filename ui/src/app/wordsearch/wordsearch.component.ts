@@ -3,7 +3,7 @@ import { WordsearchLogicService } from 'src/app/services/wordsearch-logic.servic
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import { Observable } from 'rxjs';
-import { FetchWordsearch } from 'src/app/store/wordsearch.actions';
+import { ClearFoundWords, FetchWordsearch } from 'src/app/store/wordsearch.actions';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { IWordSearchData } from 'src/app/shared/word-search-data';
 

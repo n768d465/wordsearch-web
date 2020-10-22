@@ -20,6 +20,8 @@
     &-found {
       text-decoration: line-through;
       pointer-events: none;
+      color: gray;
+      opacity: 50%;
     }
   }
 }

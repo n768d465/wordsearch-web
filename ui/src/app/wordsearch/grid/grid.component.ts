@@ -41,17 +41,16 @@ export class GridComponent implements OnInit, OnChanges, AfterViewInit {
       .pipe(
         filter(highlightedWord => !!highlightedWord),
         map((highlightedWord: IHoveredWord) => {
-          let coordinates = highlightedWord.config.positions[0]
+          let coordinates = highlightedWord.config.positions[0];
           if (highlightedWord.config.positions && highlightedWord.config.reversed) {
             coordinates = highlightedWord.config.positions[highlightedWord.config.positions.length - 1];
           }
-          if(highlightedWord.mouseLeave) {
+          if (highlightedWord.mouseLeave) {
             this.setBorderColors(coordinates, BorderColors.Default);
-          }
-          else {
+          } else {
             this.setBorderColors(coordinates, BorderColors.Highlighted);
           }
-        }),
+        })
       )
       .subscribe();
   }
@@ -79,14 +78,14 @@ export class GridComponent implements OnInit, OnChanges, AfterViewInit {
       .subscribe();
   }
 
-  handleRendering(result: {refs: ElementRef[], text: string}): void {
+  handleRendering(result: { refs: ElementRef[]; text: string }): void {
     this.store
       .select(selectWsData)
       .pipe(
         map(params => params.wordBank),
         map(wordBank => {
-          const found = wordBank.includes(result.text)
-          if(!found) {
+          const found = wordBank.includes(result.text);
+          if (!found) {
             this.logicService.setBorderByElementRef(result.refs, BorderColors.Default);
           }
           return found;

@@ -15,6 +15,6 @@ export interface IWordConfiguration {
 }
 
 export interface IHoveredWord {
-  config: IWordConfiguration,
-  mouseLeave: boolean
+  config: IWordConfiguration;
+  mouseLeave: boolean;
 }

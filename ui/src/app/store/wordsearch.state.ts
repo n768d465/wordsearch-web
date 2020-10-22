@@ -6,7 +6,7 @@ export interface WordSearchParamsState {
   params: IWordSearchParams;
   data: IWordSearchData;
   hoveredWord: IHoveredWord;
-  foundWords: string[];
+  foundWords: Set<string>;
 }
 
 export const initialWordSearchParamsState = {
@@ -14,5 +14,5 @@ export const initialWordSearchParamsState = {
   params: null,
   data: null,
   hoveredWord: null,
-  foundWords: [],
+  foundWords: null,
 };

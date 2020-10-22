@@ -1,7 +1,7 @@
-import { Component, ElementRef, Input, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, QueryList, SimpleChanges, ViewChildren } from '@angular/core';
 import { AppState } from 'src/app/app.state';
 import { Store } from '@ngrx/store';
-import { MouseHoveredOnWord, MouseLeaveOnWord } from 'src/app/store/wordsearch.actions';
+import { ClearFoundWords, MouseHoveredOnWord, MouseLeaveOnWord } from 'src/app/store/wordsearch.actions';
 import { selectFoundWords } from 'src/app/store/wordsearch.selectors';
 import { filter, switchMap, tap } from 'rxjs/operators';
 import { from } from 'rxjs';
@@ -11,7 +11,7 @@ import { from } from 'rxjs';
   templateUrl: './bank.component.html',
   styleUrls: ['./bank.component.scss'],
 })
-export class BankComponent {
+export class BankComponent implements OnInit, OnChanges {
   @Input() bank: string[];
 
   @ViewChildren('bankItem') bankItem: QueryList<ElementRef>;
@@ -29,6 +29,11 @@ export class BankComponent {
         })
       )
       .subscribe();
+  }
+
+  ngOnChanges(): void {
+    this.bankItem?.toArray().forEach(item => item.nativeElement.classList.remove('bank-item-found'));
+    this.store.dispatch(ClearFoundWords());
   }
 
   onMouseHover(word: string) {

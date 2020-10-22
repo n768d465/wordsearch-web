@@ -9,3 +9,4 @@ export const MouseHoveredOnWord = createAction('[Wordsearch] Mouse Hovered on Wo
 export const MouseLeaveOnWord = createAction('[Wordsearch] Mouse Leave on Word', props<{ word: string }>());
 
 export const WordFoundSuccess = createAction('[Wordsearch] Word Found Success', props<{ word: string }>());
+export const ClearFoundWords = createAction('[Wordsearch] Clear Found Words');
