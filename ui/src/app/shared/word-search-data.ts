@@ -1,3 +1,5 @@
+import { IWordSearchParams } from './word-search-form-data';
+
 export interface IWordSearchData {
   currentCategory: string;
   grid: string[][];
@@ -13,6 +15,6 @@ export interface IWordConfiguration {
 }
 
 export interface IHoveredWord {
-  word: string;
-  coordinates: number[][];
+  config: IWordConfiguration,
+  mouseLeave: boolean
 }

@@ -29,7 +29,6 @@ export class WordsearchLogicService {
   }
 
   setBorderColors(coords: number[][], refs: ElementRef[], borderColor: BorderColors) {
-    // refs.forEach(ele => (ele.nativeElement.style.borderColor = BorderColors.Default));
     if (coords?.length && refs?.length) {
       const ref = refs.find(item => item.nativeElement.id === `(${coords[0]},${coords[1]})`);
       this.setBorderColor(ref, borderColor);

@@ -31,11 +31,12 @@ const reducer = createReducer(
     const wordData = state.data.wordConfigurationData.find(w => payload.word === w.word);
     return {
       ...state,
-      hoveredWord: wordData,
+      hoveredWord: {config: wordData, mouseLeave: false},
     };
   }),
   on(MouseLeaveOnWord, (state, payload) => {
-    return { ...state, hoveredWord: null };
+    const wordData = state.data.wordConfigurationData.find(w => payload.word === w.word);
+    return { ...state,  hoveredWord: {config: wordData, mouseLeave: true }};
   }),
   on(WordFoundSuccess, (state, payload) => {
     return { ...state, foundWords: [...state.foundWords, payload.word] };

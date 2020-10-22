@@ -15,7 +15,7 @@ import { Store } from '@ngrx/store';
 import { fromEvent, Observable } from 'rxjs';
 import { selectLoading, selectHoveredWord, selectWsData } from 'src/app/store/wordsearch.selectors';
 import { tap, map, takeUntil, switchMap, distinct, filter, scan } from 'rxjs/operators';
-import { IWordConfiguration } from 'src/app/shared/word-search-data';
+import { IHoveredWord, IWordConfiguration } from 'src/app/shared/word-search-data';
 import { WordFoundSuccess } from 'src/app/store/wordsearch.actions';
 import { BorderColors } from 'src/app/shared/constants';
 
@@ -39,16 +39,19 @@ export class GridComponent implements OnInit, OnChanges, AfterViewInit {
     this.store
       .select(selectHoveredWord)
       .pipe(
-        map((highlightedWord: IWordConfiguration) => {
-          if (highlightedWord?.positions && highlightedWord?.reversed) {
-            return highlightedWord.positions[highlightedWord.positions.length - 1];
+        filter(highlightedWord => !!highlightedWord),
+        map((highlightedWord: IHoveredWord) => {
+          let coordinates = highlightedWord.config.positions[0]
+          if (highlightedWord.config.positions && highlightedWord.config.reversed) {
+            coordinates = highlightedWord.config.positions[highlightedWord.config.positions.length - 1];
           }
-
-          return highlightedWord?.positions[0] ?? [];
+          if(highlightedWord.mouseLeave) {
+            this.setBorderColors(coordinates, BorderColors.Default);
+          }
+          else {
+            this.setBorderColors(coordinates, BorderColors.Highlighted);
+          }
         }),
-        tap((coordinaties: number[]) => {
-          this.setBorderColors(coordinaties, BorderColors.Highlighted);
-        })
       )
       .subscribe();
   }
@@ -76,19 +79,20 @@ export class GridComponent implements OnInit, OnChanges, AfterViewInit {
       .subscribe();
   }
 
-  handleRendering(result: any): void {
+  handleRendering(result: {refs: ElementRef[], text: string}): void {
     this.store
       .select(selectWsData)
       .pipe(
-        // map(params => params.wordBank),
-        map(data => {
-          const found = data.wordBank.includes(result.text) ? BorderColors.Highlighted : BorderColors.Default;
-          this.logicService.setBorderByElementRef(result.refs, found);
-          if (data.wordBank.includes(result.text)) {
-            console.log(result);
-            this.store.dispatch(WordFoundSuccess({ word: result.text }));
+        map(params => params.wordBank),
+        map(wordBank => {
+          const found = wordBank.includes(result.text)
+          if(!found) {
+            this.logicService.setBorderByElementRef(result.refs, BorderColors.Default);
           }
-        })
+          return found;
+        }),
+        filter(found => found),
+        tap(() => this.store.dispatch(WordFoundSuccess({ word: result.text })))
       )
       .subscribe();
   }

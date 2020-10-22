@@ -3,7 +3,8 @@ import { AppState } from 'src/app/app.state';
 import { Store } from '@ngrx/store';
 import { MouseHoveredOnWord, MouseLeaveOnWord } from 'src/app/store/wordsearch.actions';
 import { selectFoundWords } from 'src/app/store/wordsearch.selectors';
-import { filter, tap } from 'rxjs/operators';
+import { filter, switchMap, tap } from 'rxjs/operators';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'wordsearch-bank',
@@ -20,12 +21,11 @@ export class BankComponent {
     this.store
       .select(selectFoundWords)
       .pipe(
-        filter(words => !!words),
-        tap(words => {
-          words.forEach(word => {
-            const wordRef = this.bankItem?.toArray().find(w => w.nativeElement.innerText === word);
-            wordRef.nativeElement.classList.add('bank-item-found');
-          });
+        switchMap(words => from(words)),
+        filter(word => !!word),
+        tap(word => {
+          const wordRef = this.bankItem?.toArray().find(w => w.nativeElement.innerText === word);
+          wordRef.nativeElement.classList.add('bank-item-found');
         })
       )
       .subscribe();
