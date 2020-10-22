@@ -39,12 +39,12 @@ export class GridComponent implements OnInit, OnChanges, AfterViewInit {
     this.store
       .select(selectHoveredWord)
       .pipe(
-        map((highlightedWord: IWordConfiguration) => { 
-          if(highlightedWord?.positions && highlightedWord?.reversed) {
-            return highlightedWord.positions[highlightedWord.positions.length - 1]
+        map((highlightedWord: IWordConfiguration) => {
+          if (highlightedWord?.positions && highlightedWord?.reversed) {
+            return highlightedWord.positions[highlightedWord.positions.length - 1];
           }
 
-          return highlightedWord?.positions[0] ?? []
+          return highlightedWord?.positions[0] ?? [];
         }),
         tap((coordinaties: number[]) => {
           this.setBorderColors(coordinaties, BorderColors.Highlighted);
@@ -61,36 +61,36 @@ export class GridComponent implements OnInit, OnChanges, AfterViewInit {
             distinct((e: MouseEvent) => e.target['id']),
             filter(e => !!e.target['id']),
             map((e: MouseEvent) => {
-              const ref = this.letters.toArray().find(item => item.nativeElement.id === e.target['id'])
+              const ref = this.letters.toArray().find(item => item.nativeElement.id === e.target['id']);
               this.logicService.setBorderColor(ref, BorderColors.Highlighted);
-              return {refs: [ref], text: e.target['innerText']}
+              return { refs: [ref], text: e.target['innerText'] };
             }),
-            scan((acc, cur) => ({refs: [...acc.refs, ...cur.refs], text: acc.text + cur.text})),
-            takeUntil(fromEvent(this.draggable.nativeElement, 'mouseup')),
+            scan((acc, cur) => ({ refs: [...acc.refs, ...cur.refs], text: acc.text + cur.text })),
+            takeUntil(fromEvent(this.draggable.nativeElement, 'mouseup'))
           );
         }),
         switchMap(text => {
-          return fromEvent(this.draggable.nativeElement, 'mouseup').pipe(
-            tap(() => this.handleRendering(text))
-          )
+          return fromEvent(this.draggable.nativeElement, 'mouseup').pipe(tap(() => this.handleRendering(text)));
         })
       )
       .subscribe();
   }
 
   handleRendering(result: any): void {
-    this.store.select(selectWsData).pipe(
-      // map(params => params.wordBank),
-      map(data => {
-        const found = data.wordBank.includes(result.text) ? BorderColors.Highlighted : BorderColors.Default;
-        this.logicService.setBorderByElementRef(result.refs, found);
-        if(data.wordBank.includes(result.text)){
-          console.log(result);
-          this.store.dispatch(WordFoundSuccess({word: result.text}))
-        }
-      }),
-    )
-    .subscribe()
+    this.store
+      .select(selectWsData)
+      .pipe(
+        // map(params => params.wordBank),
+        map(data => {
+          const found = data.wordBank.includes(result.text) ? BorderColors.Highlighted : BorderColors.Default;
+          this.logicService.setBorderByElementRef(result.refs, found);
+          if (data.wordBank.includes(result.text)) {
+            console.log(result);
+            this.store.dispatch(WordFoundSuccess({ word: result.text }));
+          }
+        })
+      )
+      .subscribe();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -102,5 +102,5 @@ export class GridComponent implements OnInit, OnChanges, AfterViewInit {
   setBorderColors(positions, color: BorderColors) {
     const letters: ElementRef<string>[] = this.letters?.toArray() ?? [];
     this.logicService.setBorderColors(positions, letters, color);
-  };
+  }
 }

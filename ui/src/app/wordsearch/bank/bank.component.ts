@@ -23,9 +23,9 @@ export class BankComponent {
         filter(words => !!words),
         tap(words => {
           words.forEach(word => {
-            const wordRef = this.bankItem?.toArray().find(w => w.nativeElement.innerText === word)
-            wordRef.nativeElement.classList.add('bank-item-found')
-          })
+            const wordRef = this.bankItem?.toArray().find(w => w.nativeElement.innerText === word);
+            wordRef.nativeElement.classList.add('bank-item-found');
+          });
         })
       )
       .subscribe();
