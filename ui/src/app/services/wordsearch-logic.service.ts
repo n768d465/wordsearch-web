@@ -40,7 +40,7 @@ export class WordsearchLogicService {
   }
 
   setBorderColor(ref: ElementRef, borderColor: BorderColors) {
-    ref.nativeElement.style.borderColor = borderColor;
+    ref.nativeElement.style['background-color'] = borderColor;
   }
 
   computeCellHeight = (grid: string[][]): number => 100 / grid.length;

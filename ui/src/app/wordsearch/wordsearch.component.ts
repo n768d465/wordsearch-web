@@ -25,8 +25,4 @@ export class WordsearchComponent implements OnInit {
     this.store.dispatch(FetchWordsearch());
     this.wordSearchData$ = this.logicService.buildWordSearch();
   }
-
-  switchGrids(value: MatCheckboxChange) {
-    this.showWordsOnly = value.checked;
-  }
 }

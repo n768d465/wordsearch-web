@@ -15,7 +15,7 @@ import { Store } from '@ngrx/store';
 import { fromEvent, Observable } from 'rxjs';
 import { selectLoading, selectHoveredWord, selectWsData } from 'src/app/store/wordsearch.selectors';
 import { tap, map, takeUntil, switchMap, distinct, filter, scan } from 'rxjs/operators';
-import { IHoveredWord, IWordConfiguration } from 'src/app/shared/word-search-data';
+import { IHoveredWord } from 'src/app/shared/word-search-data';
 import { WordFoundSuccess } from 'src/app/store/wordsearch.actions';
 import { BorderColors } from 'src/app/shared/constants';
 

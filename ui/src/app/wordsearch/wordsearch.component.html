@@ -4,7 +4,6 @@
     <div fxLayout="column">
       <div fxLayout="row" class="top-row">
         <div>Category: {{ wordSearchData.currentCategory }}</div>
-        <mat-checkbox (change)="switchGrids($event)">Show words only</mat-checkbox>
       </div>
       <div #draggable>
         <wordsearch-grid [gridData]="showWordsOnly ? wordSearchData.gridWordsOnly : wordSearchData.grid">
@@ -19,8 +18,3 @@
     </div>
   </div>
 </ng-container>
-<!-- <ng-template #spinner>
-  <div class="spinner">
-    <mat-spinner></mat-spinner>
-  </div>
-</ng-template> -->
