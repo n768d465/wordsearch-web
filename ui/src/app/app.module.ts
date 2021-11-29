@@ -11,8 +11,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
-import { NavbarComponent } from './wordsearch/navbar/navbar.component';
-import { NavbarModule } from './wordsearch/navbar/navbar.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
@@ -24,9 +22,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormDialogComponent } from './wordsearch/form-dialog/form-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
-  declarations: [AppComponent, WordsearchComponent, GridComponent, BankComponent, NavbarComponent],
+  declarations: [AppComponent, WordsearchComponent, GridComponent, BankComponent, FormDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -37,7 +39,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatDialogModule,
     MatButtonModule,
     MatCheckboxModule,
-    NavbarModule,
     MatProgressSpinnerModule,
     MatListModule,
     CommonModule,
@@ -47,8 +48,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     StoreModule.forFeature('wsState', wordsearchReducer),
     EffectsModule.forFeature([WordsearchEffects]),
     StoreModule.forRoot({}),
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatInputModule,
+    CommonModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

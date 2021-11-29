@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
 import { IWordSearchParams } from 'src/app/shared/word-search-form-data';
 import { gridSizeValidator, wordLengthValidator } from 'src/app/validators/grid-size.validator';
 import { AppState } from 'src/app/app.state';
@@ -8,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { selectWsParams } from 'src/app/store/wordsearch.selectors';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { SaveWordsearchParams } from 'src/app/store/wordsearch.actions';
+import { FetchWordsearch, SaveWordsearchParams } from 'src/app/store/wordsearch.actions';
 import { WordsearchDataService } from 'src/app/services/wordsearch-data.service';
 import { CrossFieldErrorMatcher } from 'src/app/shared/error-matcher';
 
@@ -27,9 +26,8 @@ export class FormDialogComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<FormDialogComponent>,
     private dataService: WordsearchDataService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.matcher = new CrossFieldErrorMatcher();
@@ -54,11 +52,7 @@ export class FormDialogComponent implements OnInit {
     );
   }
 
-  onClose() {
-    this.dialogRef.close();
-  }
-
-  onSave(): void {
+  onNewWordsearchBtnClicked() {
     if (!(this.wordsearchForm.status === 'INVALID')) {
       this.store.dispatch(
         SaveWordsearchParams({
@@ -68,7 +62,8 @@ export class FormDialogComponent implements OnInit {
           category: this.wordsearchForm.get('category').value,
         })
       );
-      this.dialogRef.close();
+      this.store.dispatch(FetchWordsearch())
     }
   }
+
 }

@@ -33,14 +33,14 @@ const reducer = createReducer(
     return { ...state, params };
   }),
   on(MouseHoveredOnWord, (state, payload) => {
-    const wordData = state.data.wordConfigurationData.find(w => payload.word === w.word);
+    const wordData = state.data.wordConfigurationData.find(w => payload.word === w._word);
     return {
       ...state,
       hoveredWord: { config: wordData, mouseLeave: false },
     };
   }),
   on(MouseLeaveOnWord, (state, payload) => {
-    const wordData = state.data.wordConfigurationData.find(w => payload.word === w.word);
+    const wordData = state.data.wordConfigurationData.find(w => payload.word === w._word);
     return { ...state, hoveredWord: { config: wordData, mouseLeave: true } };
   }),
   on(WordFoundSuccess, (state, payload) => {

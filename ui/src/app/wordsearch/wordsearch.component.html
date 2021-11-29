@@ -1,20 +1,12 @@
-<ws-navbar></ws-navbar>
 <ng-container *ngIf="wordSearchData$ | async as wordSearchData">
-  <div fxLayout="row" fxLayoutAlign="center">
-    <div fxLayout="column">
-      <div fxLayout="row" class="top-row">
-        <div>Category: {{ wordSearchData.currentCategory }}</div>
-      </div>
-      <div #draggable>
-        <wordsearch-grid [gridData]="wordSearchData.grid">
-        </wordsearch-grid>
-      </div>
-      <button class="ws-button" mat-raised-button color="primary" (click)="onNewWordsearchBtnClicked()">
-        New Wordsearch
-      </button>
+  <div>
+    <div>
+      <wordsearch-grid [gridData]="wordSearchData.grid">
+      </wordsearch-grid>
     </div>
-    <div class="bank-container">
-      <wordsearch-bank class="ws-bank" [bank]="wordSearchData.wordBank"> </wordsearch-bank>
-    </div>
+  </div>
+  <div class="bank-container">
+    <wordsearch-bank class="ws-bank" [bank]="wordSearchData.wordBank"> </wordsearch-bank>
+    <wordsearch-form></wordsearch-form>
   </div>
 </ng-container>

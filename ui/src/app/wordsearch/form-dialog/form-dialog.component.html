@@ -33,12 +33,9 @@
           {{ wordsearchForm.errors.minWordLengthValidator.value }}
         </mat-error>
       </mat-form-field>
-      <mat-dialog-actions align="end">
-        <button mat-button color="primary" (click)="onClose()">
-          Close
-        </button>
-        <button mat-button color="primary" (click)="onSave()">Save</button>
-      </mat-dialog-actions>
     </form>
   </div>
+  <button class="ws-button" mat-raised-button color="primary" (click)="onNewWordsearchBtnClicked()">
+    New Wordsearch
+  </button>
 </mat-dialog-content>

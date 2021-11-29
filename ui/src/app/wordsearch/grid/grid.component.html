@@ -1,13 +1,11 @@
-<div #draggable class="grid">
-  <div *ngIf="isLoading$ | async; else grid" class="spinner-container">
-    <mat-spinner class="spinner"></mat-spinner>
-  </div>
-  <ng-template #grid>
-    <div class="grid-row" *ngFor="let gr of gridData; let i = index">
-      <div #letters class="grid-item" *ngFor="let g of gr; let j = index" style.background-color="white"
-        id="({{ i }},{{ j }})">
-        {{ g }}
-      </div>
-    </div>
-  </ng-template>
+<div *ngIf="isLoading$ | async; else grid" class="spinner-container">
+  <mat-spinner class="spinner"></mat-spinner>
 </div>
+<ng-template #grid>
+  <div class="grid-row" *ngFor="let gr of gridData; let i = index">
+    <div #letters class="grid-item" *ngFor="let g of gr; let j = index" style.background-color="white"
+      id="({{ i }},{{ j }})">
+      {{ g }}
+    </div>
+  </div>
+</ng-template>

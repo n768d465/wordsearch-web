@@ -1,5 +1,10 @@
 @import '../../../styles';
 
+.mat-h4 {
+  display: flex;
+  justify-content: center;
+}
+
 .bank {
   &-items {
     list-style-type: none;

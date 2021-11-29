@@ -1,22 +1,23 @@
-.grid {
+:host {
   border: 1px solid;
   padding: 1px;
-  width: 85vh;
-  height: 85vh;
+  width: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  &-row {
-    display: flex;
-    justify-content: space-around;
-  }
+}
 
-  &-item {
-    border-radius: 50px;
-    font-family: monospace;
-    cursor: default;
-    user-select: none;
-  }
+.grid-row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.grid-item {
+  border-radius: 50px;
+  font-family: monospace;
+  cursor: default;
+  user-select: none;
 }
 
 .spinner-container {

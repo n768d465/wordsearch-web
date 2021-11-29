@@ -6,7 +6,6 @@ import { FetchWordsearch, SaveWordsearchParams } from './store/wordsearch.action
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   constructor(private store: Store<AppState>) { }
