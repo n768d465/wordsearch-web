@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from './app.state';
-import { SaveWordsearchParams } from './store/wordsearch.actions';
+import { FetchWordsearch, SaveWordsearchParams } from './store/wordsearch.actions';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import { SaveWordsearchParams } from './store/wordsearch.actions';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
     this.store.dispatch(
@@ -20,5 +20,6 @@ export class AppComponent implements OnInit {
         maxWordLength: '7',
       })
     );
+    this.store.dispatch(FetchWordsearch());
   }
 }

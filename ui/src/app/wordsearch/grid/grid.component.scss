@@ -3,17 +3,17 @@
   padding: 1px;
   width: 85vh;
   height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   &-row {
     display: flex;
+    justify-content: space-around;
   }
 
   &-item {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid white;
     border-radius: 50px;
+    font-family: monospace;
     cursor: default;
     user-select: none;
   }

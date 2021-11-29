@@ -6,10 +6,10 @@
         <div>Category: {{ wordSearchData.currentCategory }}</div>
       </div>
       <div #draggable>
-        <wordsearch-grid [gridData]="showWordsOnly ? wordSearchData.gridWordsOnly : wordSearchData.grid">
+        <wordsearch-grid [gridData]="wordSearchData.grid">
         </wordsearch-grid>
       </div>
-      <button class="ws-button" mat-raised-button color="primary" (click)="buildWordSearch()">
+      <button class="ws-button" mat-raised-button color="primary" (click)="onNewWordsearchBtnClicked()">
         New Wordsearch
       </button>
     </div>
