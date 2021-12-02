@@ -1,41 +1,40 @@
-<ng-container *ngIf="categories$ | async"></ng-container>
-<mat-dialog-content>
-  <div class="form-header">
-    <mat-icon class="form-icon">info</mat-icon>
-    Settings will take effect when a new wordsearch is requested.
-  </div>
-  <div *ngIf="wordsearchFormData$ | async">
-    <form [formGroup]="wordsearchForm">
-      <mat-form-field class="form-field">
-        <mat-label>Category</mat-label>
-        <mat-select formControlName="category">
-          <mat-option *ngFor="let category of categoryData" [value]="category"> {{ category }} </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Wordsearch Size</mat-label>
-        <input matInput [errorStateMatcher]="matcher" formControlName="wordsearchSize" />
-        <mat-error *ngIf="wordsearchForm?.errors?.gridSizeValidator">
-          {{ wordsearchForm.errors.gridSizeValidator.value }}
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Min Word Length</mat-label>
-        <input [errorStateMatcher]="matcher" matInput formControlName="minWordLength" />
-        <mat-error *ngIf="wordsearchForm.errors?.minWordLengthValidator">
-          {{ wordsearchForm.errors.minWordLengthValidator.value }}
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Max Word Length</mat-label>
-        <input [errorStateMatcher]="matcher" matInput formControlName="maxWordLength" />
-        <mat-error *ngIf="wordsearchForm.errors?.minWordLengthValidator">
-          {{ wordsearchForm.errors.minWordLengthValidator.value }}
-        </mat-error>
-      </mat-form-field>
-    </form>
-  </div>
-  <button class="ws-button" mat-raised-button color="primary" (click)="onNewWordsearchBtnClicked()">
-    New Wordsearch
-  </button>
-</mat-dialog-content>
+<ng-container *ngIf="categories$ | async as categories">
+  <mat-dialog-content>
+    <div *ngIf="wordsearchFormData$ | async">
+      <form [formGroup]="wordsearchForm">
+        <label for="category">Category</label>
+        <select class="form-select form-select-sm" formControlName="category">
+          <ng-container *ngFor="let category of categories">
+            <option [value]="category">
+              {{category}}
+            </option>
+          </ng-container>
+        </select>
+        <mat-form-field class="form-field">
+          <label for="wordsearchSize">Wordsearch Size</label>
+          <input class="form-control form-control-sm" formControlName="wordsearchSize">
+          <!-- <mat-error *ngIf="wordsearchForm?.errors?.gridSizeValidator">
+            {{ wordsearchForm.errors.gridSizeValidator.value }}
+          </mat-error> -->
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <label for="minWordLength">Min Word Length</label>
+          <input class="form-control form-control-sm" formControlName="minWordLength">
+          <!-- <mat-error *ngIf="wordsearchForm.errors?.minWordLengthValidator">
+            {{ wordsearchForm.errors.minWordLengthValidator.value }}
+          </mat-error> -->
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <label for="maxWordLength">Max Word Length</label>
+          <input class="form-control form-control-sm" formControlName="maxWordLength">
+          <!-- <mat-error *ngIf="wordsearchForm.errors?.minWordLengthValidator">
+            {{ wordsearchForm.errors.minWordLengthValidator.value }}
+          </mat-error> -->
+        </mat-form-field>
+      </form>
+    </div>
+    <button class="ws-button btn btn-primary" (click)="onNewWordsearchBtnClicked()">
+      New Wordsearch
+    </button>
+  </mat-dialog-content>
+</ng-container>

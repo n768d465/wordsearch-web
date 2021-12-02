@@ -1,8 +1,12 @@
 :host {
-  border: 1px solid;
-  padding: 1px;
+  padding: 16px;
   width: 100vh;
   height: 100vh;
+}
+
+.ws-border{
+  height:100%;
+  border:1px solid;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
