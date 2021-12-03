@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createEffect, ofType, Actions } from '@ngrx/effects';
 import { FetchWordsearch, FetchWordsearchSuccess } from './wordsearch.actions';
-import { mergeMap, map, withLatestFrom, tap } from 'rxjs/operators';
+import { mergeMap, map, withLatestFrom, tap, switchMap } from 'rxjs/operators';
 import { WordsearchDataService } from '../services/wordsearch-data.service';
 import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
@@ -13,7 +13,7 @@ export class WordsearchEffects {
     this.actions$.pipe(
       ofType(FetchWordsearch),
       withLatestFrom(this.store.select(selectWsParams)),
-      mergeMap(([, params]) =>
+      switchMap(([, params]) =>
         this.dataService.getWordSearch(params).pipe(
           map(data => FetchWordsearchSuccess(data))
         )
