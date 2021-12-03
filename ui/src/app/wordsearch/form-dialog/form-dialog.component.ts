@@ -9,7 +9,6 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { FetchWordsearch, SaveWordsearchParams } from 'src/app/store/wordsearch.actions';
 import { WordsearchDataService } from 'src/app/services/wordsearch-data.service';
-import { CrossFieldErrorMatcher } from 'src/app/shared/error-matcher';
 
 @Component({
   selector: 'wordsearch-form',
@@ -20,7 +19,6 @@ export class FormDialogComponent implements OnInit {
   wordsearchFormData$: Observable<IWordSearchParams>;
   wordsearchForm: FormGroup;
   categories$: Observable<string[]>;
-  categoryData: string[];
 
   constructor(
     private store: Store<AppState>,
@@ -44,9 +42,7 @@ export class FormDialogComponent implements OnInit {
     );
 
     this.categories$ = this.dataService.getCategories().pipe(
-      map(categories => {
-        return categories;
-      })
+      map(categories => categories)
     );
   }
 

@@ -1,27 +1,12 @@
-mat-dialog-content {
-  overflow: visible;
+:host {
+  // height: 100%
 }
 
-.ng-invalid:not(form) {
-  border-color: red;
+.ws-field {
+  margin-top: 6px;
+  margin-bottom: 6px;
 }
 
-.form {
-  &-header {
-    position: relative;
-    bottom: 8px;
-  }
-
-  &-icon {
-    position: relative;
-    top: 6px;
-  }
-
-  &-field {
-    width: 100%;
-  }
-}
-
-.ws-button {
+button {
   width:100%
 }

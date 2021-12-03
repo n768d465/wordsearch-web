@@ -1,6 +1,8 @@
 <div class="ws-border">
   <div *ngIf="isLoading$ | async; else grid" class="spinner-container">
-    <mat-spinner class="spinner"></mat-spinner>
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
   </div>
   <ng-template #grid>
     <div class="grid-row" *ngFor="let gr of gridData; let i = index">

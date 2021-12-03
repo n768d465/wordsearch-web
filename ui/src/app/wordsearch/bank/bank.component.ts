@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, Input, QueryList, Renderer2, ViewChildren } from '@angular/core';
 import { AppState } from 'src/app/app.state';
 import { Store } from '@ngrx/store';
 import { MouseHoveredOnWord, MouseLeaveOnWord } from 'src/app/store/wordsearch.actions';

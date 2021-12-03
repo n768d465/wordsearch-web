@@ -4,7 +4,7 @@ import {
   ViewChildren,
   ElementRef,
   OnInit,
-  ViewChild,
+  Renderer2,
 } from '@angular/core';
 import { AppState } from 'src/app/app.state';
 import { select, Store } from '@ngrx/store';
@@ -12,7 +12,6 @@ import { Observable } from 'rxjs';
 import { selectLoading, selectHoveredWord } from 'src/app/store/wordsearch.selectors';
 import { tap, filter } from 'rxjs/operators';
 import { IHoveredWord } from 'src/app/shared/word-search-data';
-import { BorderColors } from 'src/app/shared/constants';
 
 @Component({
   selector: 'wordsearch-grid',
@@ -25,7 +24,7 @@ export class GridComponent implements OnInit {
 
   isLoading$: Observable<boolean>;
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>, private renderer: Renderer2) { }
 
   ngOnInit() {
     this.isLoading$ = this.store.select(selectLoading);
@@ -36,21 +35,27 @@ export class GridComponent implements OnInit {
         tap((highlightedWord: IHoveredWord) => {
           let coordinates = highlightedWord.config.positions;
           if (highlightedWord.mouseLeave) {
-            this.setBorderColors(coordinates, BorderColors.Default);
+            this.applyRender(coordinates, ((el: any) => {
+              this.renderer.removeClass(el, 'text-warning')
+              this.renderer.addClass(el, 'text-white')
+            }));
           } else {
-            this.setBorderColors(coordinates, BorderColors.Highlighted);
+            this.applyRender(coordinates, ((el: any) => {
+              this.renderer.addClass(el, 'text-warning')
+              this.renderer.removeClass(el, 'text-white')
+            }));
           }
         })
       )
       .subscribe();
   }
 
-  setBorderColors(coords, color: BorderColors) {
+  applyRender(coords, classFn: (el: any) => void) {
     const refs: ElementRef[] = this.letters?.toArray() ?? [];
     if (coords?.length && refs?.length) {
       coords.forEach(coord => {
         const ref = refs.find(item => item.nativeElement.id === `(${coord[0]},${coord[1]})`);
-        ref.nativeElement.style['background-color'] = color;
+        classFn(ref.nativeElement);
       })
     }
   }
