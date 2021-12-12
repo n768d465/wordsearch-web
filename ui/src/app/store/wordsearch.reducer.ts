@@ -7,6 +7,7 @@ import {
   MouseLeaveOnWord,
   WordFoundSuccess,
   ClearFoundWords,
+  SetLoading,
 } from './wordsearch.actions';
 import { initialWordSearchParamsState, WordSearchParamsState } from './wordsearch.state';
 
@@ -29,19 +30,23 @@ const reducer = createReducer(
       foundWords: new Set(),
     };
   }),
+  on(SetLoading, (state, payload) => {
+    return {
+      ...state,
+      isLoading: payload.isLoading
+    }
+  }),
   on(SaveWordsearchParams, (state, params) => {
     return { ...state, params };
   }),
   on(MouseHoveredOnWord, (state, payload) => {
-    const wordData = state.data.wordConfigurationData.find(w => payload.word === w._word);
     return {
       ...state,
-      hoveredWord: { config: wordData, mouseLeave: false },
+      hoveredWord: { config: payload.word, mouseLeave: false },
     };
   }),
   on(MouseLeaveOnWord, (state, payload) => {
-    const wordData = state.data.wordConfigurationData.find(w => payload.word === w._word);
-    return { ...state, hoveredWord: { config: wordData, mouseLeave: true } };
+    return { ...state, hoveredWord: { config: payload.word, mouseLeave: true } };
   }),
   on(WordFoundSuccess, (state, payload) => {
     return { ...state, foundWords: new Set([...state.foundWords, payload.word]) };
@@ -54,3 +59,4 @@ const reducer = createReducer(
 export function wordsearchReducer(state: WordSearchParamsState, action: Action) {
   return reducer(state, action);
 }
+

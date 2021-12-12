@@ -4,9 +4,10 @@
   height: 100vh;
 }
 
-.ws-border{
-  height:100%;
-  border:1px solid;
+.ws-border {
+  height: 100%;
+  border: 1px solid;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;

@@ -6,8 +6,13 @@
   </div>
   <ng-template #grid>
     <div class="grid-row" *ngFor="let gr of gridData; let i = index">
-      <div #letters class="grid-item" *ngFor="let g of gr; let j = index" style.background-color="white"
-        id="({{ i }},{{ j }})">
+      <div
+        #letters
+        class="grid-item"
+        *ngFor="let g of gr; let j = index"
+        style.background-color="white"
+        id="({{ i }},{{ j }})"
+      >
         {{ g }}
       </div>
     </div>

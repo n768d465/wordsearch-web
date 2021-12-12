@@ -1,14 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { IWordSearchParams } from 'src/app/shared/word-search-form-data';
-import { gridSizeValidator, wordLengthValidator } from 'src/app/validators/grid-size.validator';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { AppState } from 'src/app/app.state';
 import { Store } from '@ngrx/store';
-import { selectWsParams } from 'src/app/store/wordsearch.selectors';
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
 import { FetchWordsearch, SaveWordsearchParams } from 'src/app/store/wordsearch.actions';
-import { WordsearchDataService } from 'src/app/services/wordsearch-data.service';
+import { Observable } from 'rxjs';
+import { selectLoading } from 'src/app/store/wordsearch.selectors';
 
 @Component({
   selector: 'wordsearch-form',
@@ -16,34 +12,15 @@ import { WordsearchDataService } from 'src/app/services/wordsearch-data.service'
   styleUrls: ['./form-dialog.component.scss'],
 })
 export class FormDialogComponent implements OnInit {
-  wordsearchFormData$: Observable<IWordSearchParams>;
-  wordsearchForm: FormGroup;
-  categories$: Observable<string[]>;
+  @Input() wordsearchForm: FormGroup;
+  @Input() categories: string[];
 
-  constructor(
-    private store: Store<AppState>,
-    private fb: FormBuilder,
-    private dataService: WordsearchDataService
-  ) { }
+  isLoading$: Observable<boolean>;
+
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.wordsearchFormData$ = this.store.select(selectWsParams).pipe(
-      tap(data => {
-        this.wordsearchForm = this.fb.group(
-          {
-            wordsearchSize: [data.wordsearchSize],
-            minWordLength: [data.minWordLength],
-            maxWordLength: [data.maxWordLength],
-            category: [data.category],
-          },
-          { validators: [gridSizeValidator(), wordLengthValidator()] }
-        );
-      })
-    );
-
-    this.categories$ = this.dataService.getCategories().pipe(
-      map(categories => categories)
-    );
+    this.isLoading$ = this.store.select(selectLoading);
   }
 
   onNewWordsearchBtnClicked() {
@@ -56,8 +33,7 @@ export class FormDialogComponent implements OnInit {
           category: this.wordsearchForm.get('category').value,
         })
       );
-      this.store.dispatch(FetchWordsearch())
+      this.store.dispatch(FetchWordsearch());
     }
   }
-
 }

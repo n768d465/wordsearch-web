@@ -1,5 +1,5 @@
 export interface IWordSearchParams {
-  category?: string;
+  category: string;
   wordsearchSize: string;
   minWordLength: string;
   maxWordLength: string;
