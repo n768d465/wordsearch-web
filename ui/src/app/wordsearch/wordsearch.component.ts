@@ -17,7 +17,6 @@ import { WordsearchDataService } from '../services/wordsearch-data.service';
 export class WordsearchComponent implements OnInit {
   wordSearchData$: Observable<IWordSearchData>;
   wordBank: string[];
-  err: string;
   constructor(private store: Store<AppState>, private dataService: WordsearchDataService, private fb: FormBuilder) {}
 
   ngOnInit() {

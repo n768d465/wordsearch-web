@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AppState } from 'src/app/app.state';
 import { Store } from '@ngrx/store';
-import { FetchWordsearch, SaveWordsearchParams } from 'src/app/store/wordsearch.actions';
+import { ClearFoundWords, FetchWordsearch, SaveWordsearchParams } from 'src/app/store/wordsearch.actions';
 import { Observable } from 'rxjs';
 import { selectLoading } from 'src/app/store/wordsearch.selectors';
 
@@ -34,6 +34,7 @@ export class FormDialogComponent implements OnInit {
         })
       );
       this.store.dispatch(FetchWordsearch());
+      this.store.dispatch(ClearFoundWords());
     }
   }
 }

@@ -1,4 +1,4 @@
-<ng-container *ngIf="wordSearchData$ | async as wordSearchData; else loadErr">
+<ng-container *ngIf="wordSearchData$ | async as wordSearchData">
   <div class="grid-container">
     <wordsearch-grid [gridData]="wordSearchData.grid"> </wordsearch-grid>
   </div>

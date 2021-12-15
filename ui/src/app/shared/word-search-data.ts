@@ -8,6 +8,12 @@ export interface IWordConfiguration {
   positions: number[][];
 }
 
+export interface IScannedText {
+  elementIds: string[];
+  scannedText: string;
+  scannedTextReversed: string;
+}
+
 export interface IHoveredWord {
   config: IWordConfiguration;
   mouseLeave: boolean;
