@@ -1,8 +1,13 @@
 <h4>Word Bank</h4>
 <ul class="bank-items">
   <ng-container *ngFor="let wordData of wordConfigurationData">
-    <li #bankItem (mouseenter)="onMouseHover(wordData)" (mouseleave)="onMouseLeave(wordData)"
-      [innerText]="wordData.word" class="bank-item">
-    </li>
+    <li
+      #bankItem
+      (mouseenter)="onMouseHover(wordData)"
+      (mouseleave)="onMouseLeave(wordData)"
+      [innerText]="wordData.word"
+      class="bank-item"
+    ></li>
   </ng-container>
 </ul>
+<div class="text-success" *ngIf="allWordsFound">Congrats! You found all the words.</div>

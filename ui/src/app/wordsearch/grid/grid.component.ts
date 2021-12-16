@@ -7,25 +7,13 @@ import {
   Renderer2,
   ViewChild,
   AfterViewInit,
-  SimpleChanges,
   QueryList,
 } from '@angular/core';
 import { AppState } from 'src/app/app.state';
 import { select, Store } from '@ngrx/store';
-import { fromEvent, Observable, of, Subject } from 'rxjs';
+import { fromEvent, MonoTypeOperatorFunction, Observable, Subject } from 'rxjs';
 import { selectLoading, selectHoveredWord, selectWsData } from 'src/app/store/wordsearch.selectors';
-import {
-  tap,
-  filter,
-  takeUntil,
-  switchMap,
-  distinct,
-  scan,
-  map,
-  mapTo,
-  withLatestFrom,
-  mergeMap,
-} from 'rxjs/operators';
+import { tap, filter, takeUntil, switchMap, distinct, scan, map, withLatestFrom } from 'rxjs/operators';
 import { IScannedText, IHoveredWord } from 'src/app/shared/word-search-data';
 import { ScanFoundWord } from 'src/app/store/wordsearch.actions';
 
@@ -36,7 +24,7 @@ import { ScanFoundWord } from 'src/app/store/wordsearch.actions';
 })
 export class GridComponent implements OnInit, AfterViewInit {
   @Input() gridData: string[][];
-  @ViewChild('draggable') draggable;
+  @ViewChild('draggable') draggable: ElementRef;
   @ViewChildren('letters') letters: QueryList<ElementRef>;
 
   isLoading$: Observable<boolean>;
@@ -93,7 +81,7 @@ export class GridComponent implements OnInit, AfterViewInit {
             'mousemove'
           ).pipe(
             distinct((e: MouseEvent) => e.target['id']),
-            tap(e => this.renderer.addClass(e.target, 'text-info')),
+            addTextInfoClass(this.renderer),
             map(e => ({ elementIds: [e.target['id']], scannedText: e.target['innerText'] })),
             scan((acc, cur) => ({
               elementIds: [...acc.elementIds, ...cur.elementIds],
@@ -124,4 +112,8 @@ export class GridComponent implements OnInit, AfterViewInit {
       });
     }
   }
+}
+
+function addTextInfoClass(renderer: Renderer2): MonoTypeOperatorFunction<MouseEvent> {
+  return source => source.pipe(tap(e => renderer.addClass(e.target, 'text-info')));
 }
