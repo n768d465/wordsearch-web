@@ -2,7 +2,6 @@ from flask import Flask
 from flask_restful import Api, Resource, request
 from wordsearch.wordsearch_generator import WordSearchGenerator
 from flask_cors import CORS
-import subprocess 
 
 app = Flask(__name__)
 api = Api(app)

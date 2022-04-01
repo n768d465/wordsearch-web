@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map, skip } from 'rxjs/operators';
 import { AppState } from 'src/app/app.state';
-import { combineLatest, Observable, throwError } from 'rxjs';
-import { IWordSearchData } from 'src/app/shared/word-search-data';
-import { selectWsData, selectWsParams } from '../store/wordsearch.selectors';
-import { catchError, filter, map } from 'rxjs/operators';
-import { FormBuilder } from '@angular/forms';
-import { gridSizeValidator, wordLengthValidator } from '../validators/grid-size.validator';
-import { WordsearchDataService } from '../services/wordsearch-data.service';
+import { selectAllData } from '../store/wordsearch.selectors';
 
 @Component({
   selector: 'app-wordsearch',
@@ -15,32 +11,21 @@ import { WordsearchDataService } from '../services/wordsearch-data.service';
   styleUrls: ['./wordsearch.component.scss'],
 })
 export class WordsearchComponent implements OnInit {
-  wordSearchData$: Observable<IWordSearchData>;
-  wordBank: string[];
-  constructor(private store: Store<AppState>, private dataService: WordsearchDataService, private fb: FormBuilder) {}
+  wordSearchData$: Observable<any>;
+  params: any;
+  isLoading$: Observable<boolean>;
+
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.wordSearchData$ = combineLatest([
-      this.store.select(selectWsData),
-      this.store.select(selectWsParams),
-      this.dataService.getCategories(),
-    ]).pipe(
-      filter(data => !!data),
-      map(([data, params, categories]) => {
-        return {
-          ...data,
-          categories,
-          wordsearchForm: this.fb.group(
-            {
-              wordsearchSize: [params.wordsearchSize],
-              minWordLength: [params.minWordLength],
-              maxWordLength: [params.maxWordLength],
-              category: [params.category],
-            },
-            { validators: [gridSizeValidator(), wordLengthValidator()], updateOn: 'blur' }
-          ),
-        };
-      })
+    this.wordSearchData$ = this.store.pipe(
+      select(selectAllData),
+      skip(2),
+      map(({ wsData, wsCategories }) => ({
+        wsCategories,
+        wsGrid: wsData.grid,
+        wsConfigData: wsData.wordConfigurationData,
+      }))
     );
   }
 }

@@ -1,11 +1,11 @@
-import { AfterViewInit, Component, ElementRef, Input, QueryList, Renderer2, ViewChildren } from '@angular/core';
-import { AppState } from 'src/app/app.state';
+import { AfterViewInit, Component, ElementRef, Input, QueryList, ViewChildren } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { MouseHoveredOnWord, MouseLeaveOnWord } from 'src/app/store/wordsearch.actions';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { AppState } from 'src/app/app.state';
 import { IWordConfiguration } from 'src/app/shared/word-search-data';
+import { MouseHoveredOnWord, MouseLeaveOnWord } from 'src/app/store/wordsearch.actions';
 import { selectFoundWords } from 'src/app/store/wordsearch.selectors';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
-import { from, Observable } from 'rxjs';
 
 @Component({
   selector: 'wordsearch-bank',
@@ -16,7 +16,8 @@ export class BankComponent implements AfterViewInit {
   @Input() wordConfigurationData: IWordConfiguration[];
   @ViewChildren('bankItem') bankItem: QueryList<ElementRef>;
 
-  allWordsFound: boolean;
+  allWordsFound: boolean = false;
+  isLoading$: Observable<boolean>;
   constructor(private store: Store<AppState>) {}
 
   ngAfterViewInit() {

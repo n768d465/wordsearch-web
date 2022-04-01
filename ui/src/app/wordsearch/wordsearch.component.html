@@ -1,11 +1,10 @@
 <ng-container *ngIf="wordSearchData$ | async as wordSearchData">
   <div class="grid-container">
-    <wordsearch-grid [gridData]="wordSearchData.grid"> </wordsearch-grid>
+    <wordsearch-grid [gridData]="wordSearchData.wsGrid"> </wordsearch-grid>
   </div>
   <div class="bank-container">
-    <wordsearch-form [wordsearchForm]="wordSearchData.wordsearchForm" [categories]="wordSearchData.categories">
-    </wordsearch-form>
+    <wordsearch-form [categories]="wordSearchData.wsCategories"> </wordsearch-form>
     <hr />
-    <wordsearch-bank class="ws-bank" [wordConfigurationData]="wordSearchData.wordConfigurationData"> </wordsearch-bank>
+    <wordsearch-bank class="ws-bank" [wordConfigurationData]="wordSearchData.wsConfigData"> </wordsearch-bank>
   </div>
 </ng-container>

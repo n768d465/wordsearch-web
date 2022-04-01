@@ -13,9 +13,9 @@ import { AppState } from 'src/app/app.state';
 import { select, Store } from '@ngrx/store';
 import { fromEvent, MonoTypeOperatorFunction, Observable, Subject } from 'rxjs';
 import { selectLoading, selectHoveredWord, selectWsData } from 'src/app/store/wordsearch.selectors';
-import { tap, filter, takeUntil, switchMap, distinct, scan, map, withLatestFrom } from 'rxjs/operators';
+import { tap, filter, takeUntil, switchMap, distinct, scan, map, withLatestFrom, startWith } from 'rxjs/operators';
 import { IScannedText, IHoveredWord } from 'src/app/shared/word-search-data';
-import { ScanFoundWord } from 'src/app/store/wordsearch.actions';
+import { SetLoading, WordFoundSuccess } from 'src/app/store/wordsearch.actions';
 
 @Component({
   selector: 'wordsearch-grid',
@@ -60,6 +60,19 @@ export class GridComponent implements OnInit, AfterViewInit {
         withLatestFrom(this.store.select(selectWsData)),
         tap(([foundWordData, wsData]) => {
           const bank = wsData.wordConfigurationData.map(w => w.word);
+          const foundWord = wsData.wordConfigurationData.find(
+            w => w.word === foundWordData.scannedText || w.word === foundWordData.scannedTextReversed
+          );
+
+          if (
+            foundWord &&
+            arePositionsEqual(
+              foundWordData.elementIds.map(c => JSON.parse(c)),
+              foundWord.positions
+            )
+          ) {
+            this.store.dispatch(WordFoundSuccess({ word: foundWord.word }));
+          }
           if (!bank.some(w => w === foundWordData.scannedText || w === foundWordData.scannedTextReversed)) {
             const coords = foundWordData.elementIds.map(coords => JSON.parse(coords));
             this.applyRender(coords, (el: any) => {
@@ -73,34 +86,38 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    fromEvent(this.draggable.nativeElement, 'mousedown')
+    this.letters.changes
       .pipe(
-        switchMap(() =>
-          fromEvent(
-            this.letters.toArray().map(ref => ref.nativeElement),
-            'mousemove'
-          ).pipe(
-            distinct((e: MouseEvent) => e.target['id']),
+        startWith(this.letters),
+        filter(letters => letters.length > 0),
+        map(letters => letters.toArray().map(ref => ref.nativeElement)),
+        switchMap(refs => {
+          return fromEvent(refs, 'mousedown').pipe(
             addTextInfoClass(this.renderer),
-            map(e => ({ elementIds: [e.target['id']], scannedText: e.target['innerText'] })),
-            scan((acc, cur) => ({
-              elementIds: [...acc.elementIds, ...cur.elementIds],
-              scannedText: acc.scannedText + cur.scannedText,
-            })),
-            takeUntil(fromEvent(this.draggable.nativeElement, 'mouseup'))
-          )
-        ),
-        switchMap(text =>
-          fromEvent(this.draggable.nativeElement, 'mouseup').pipe(
-            map(() => ({ ...text, scannedTextReversed: [...text.scannedText].reverse().join('') }))
-          )
-        ),
-        tap(({ elementIds, scannedText, scannedTextReversed }) => {
-          this.store.dispatch(ScanFoundWord({ elementIds, scannedText, scannedTextReversed }));
-          this.foundWord$.next({ elementIds, scannedText, scannedTextReversed });
+            switchMap(() =>
+              fromEvent(refs, 'mousemove').pipe(
+                distinct((e: MouseEvent) => e.target['id']),
+                addTextInfoClass(this.renderer),
+                map(e => ({ elementIds: [e.target['id']], scannedText: e.target['innerText'] })),
+                scan((acc, cur) => ({
+                  elementIds: [...acc.elementIds, ...cur.elementIds],
+                  scannedText: acc.scannedText + cur.scannedText,
+                })),
+                takeUntil(fromEvent(this.draggable.nativeElement, 'mouseup'))
+              )
+            ),
+            switchMap(text =>
+              fromEvent(this.draggable.nativeElement, 'mouseup').pipe(
+                map(() => ({ ...text, scannedTextReversed: [...text.scannedText].reverse().join('') }))
+              )
+            ),
+            tap(({ elementIds, scannedText, scannedTextReversed }) => {
+              this.foundWord$.next({ elementIds, scannedText, scannedTextReversed });
+            })
+          );
         })
       )
-      .subscribe();
+      .subscribe(() => {});
   }
 
   applyRender(coords: number[][], classFn: (el: any) => void) {
@@ -116,4 +133,17 @@ export class GridComponent implements OnInit, AfterViewInit {
 
 function addTextInfoClass(renderer: Renderer2): MonoTypeOperatorFunction<MouseEvent> {
   return source => source.pipe(tap(e => renderer.addClass(e.target, 'text-info')));
+}
+
+function arePositionsEqual(arr1: number[][], arr2: number[][]) {
+  if (arr1.length != arr2.length) {
+    return false;
+  }
+
+  return arr1.every(pos => {
+    const p1 = pos[0];
+    const p2 = pos[1];
+
+    return arr2.some(pos2 => pos2[0] === p1 && pos2[1] === p2);
+  });
 }

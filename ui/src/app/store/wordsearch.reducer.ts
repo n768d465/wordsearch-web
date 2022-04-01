@@ -1,18 +1,19 @@
-import { createReducer, on, Action } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
 import {
-  FetchWordsearchSuccess,
+  ClearFoundWords,
+  FetchCategoriesSuccess,
   FetchWordsearch,
-  SaveWordsearchParams,
+  FetchWordsearchSuccess,
   MouseHoveredOnWord,
   MouseLeaveOnWord,
-  WordFoundSuccess,
-  ClearFoundWords,
+  SaveWordsearchParams,
   SetLoading,
+  WordFoundSuccess,
 } from './wordsearch.actions';
-import { initialWordSearchParamsState, WordSearchParamsState } from './wordsearch.state';
+import { initialWordSearchState, WordSearchState } from './wordsearch.state';
 
 const reducer = createReducer(
-  initialWordSearchParamsState,
+  initialWordSearchState,
   on(FetchWordsearch, (state, payload) => {
     return {
       ...state,
@@ -30,11 +31,17 @@ const reducer = createReducer(
       foundWords: new Set(),
     };
   }),
+  on(FetchCategoriesSuccess, (state, payload) => {
+    return {
+      ...state,
+      categories: payload,
+    };
+  }),
   on(SetLoading, (state, payload) => {
     return {
       ...state,
-      isLoading: payload.isLoading
-    }
+      isLoading: payload.isLoading,
+    };
   }),
   on(SaveWordsearchParams, (state, params) => {
     return { ...state, params };
@@ -56,7 +63,6 @@ const reducer = createReducer(
   })
 );
 
-export function wordsearchReducer(state: WordSearchParamsState, action: Action) {
+export function wordsearchReducer(state: WordSearchState, action: Action) {
   return reducer(state, action);
 }
-

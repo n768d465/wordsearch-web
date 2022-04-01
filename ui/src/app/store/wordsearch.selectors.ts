@@ -1,16 +1,17 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { WordSearchParamsState } from './wordsearch.state';
+import { WordSearchState } from './wordsearch.state';
 
-export const selectWordsearchState = createFeatureSelector<WordSearchParamsState>('wsState');
-export const selectLoading = createSelector(selectWordsearchState, (state: WordSearchParamsState) => state.isLoading);
-export const selectWsData = createSelector(selectWordsearchState, (state: WordSearchParamsState) => state.data);
-export const selectHoveredWord = createSelector(
-  selectWordsearchState,
-  (state: WordSearchParamsState) => state.hoveredWord
-);
-export const selectWsParams = createSelector(selectWordsearchState, (state: WordSearchParamsState) => state.params);
+export const selectWordsearchState = createFeatureSelector<WordSearchState>('wsState');
+export const selectLoading = createSelector(selectWordsearchState, (state: WordSearchState) => state.isLoading);
+export const selectWsData = createSelector(selectWordsearchState, (state: WordSearchState) => state.data);
+export const selectWsCategories = createSelector(selectWordsearchState, (state: WordSearchState) => state.categories);
+export const selectHoveredWord = createSelector(selectWordsearchState, (state: WordSearchState) => state.hoveredWord);
 
-export const selectFoundWords = createSelector(
-  selectWordsearchState,
-  (state: WordSearchParamsState) => state.foundWords
-);
+export const selectFoundWords = createSelector(selectWordsearchState, (state: WordSearchState) => state.foundWords);
+
+export const selectAllData = createSelector(selectWsData, selectWsCategories, (wsData, wsCategories) => {
+  return {
+    wsData,
+    wsCategories: wsCategories?.categories ?? null,
+  };
+});
