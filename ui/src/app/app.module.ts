@@ -22,12 +22,12 @@ import { AppComponent } from './app.component';
 import { WordsearchEffects } from './store/wordsearch.effects';
 import { wordsearchReducer } from './store/wordsearch.reducer';
 import { BankComponent } from './wordsearch/bank/bank.component';
-import { FormDialogComponent } from './wordsearch/form/form.component';
+import { FormComponent } from './wordsearch/form/form.component';
 import { GridComponent } from './wordsearch/grid/grid.component';
 import { WordsearchComponent } from './wordsearch/wordsearch.component';
 
 @NgModule({
-  declarations: [AppComponent, WordsearchComponent, GridComponent, BankComponent, FormDialogComponent],
+  declarations: [AppComponent, WordsearchComponent, GridComponent, BankComponent, FormComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
