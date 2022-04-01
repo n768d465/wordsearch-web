@@ -9,9 +9,7 @@ export const selectHoveredWord = createSelector(selectWordsearchState, (state: W
 
 export const selectFoundWords = createSelector(selectWordsearchState, (state: WordSearchState) => state.foundWords);
 
-export const selectAllData = createSelector(selectWsData, selectWsCategories, (wsData, wsCategories) => {
-  return {
-    wsData,
-    wsCategories: wsCategories?.categories ?? null,
-  };
-});
+export const selectAllData = createSelector(selectWsData, selectWsCategories, (wsData, wsCategories) => ({
+  wsData,
+  wsCategories,
+}));

@@ -1,21 +1,21 @@
 import {
+  AfterViewInit,
   Component,
-  Input,
-  ViewChildren,
   ElementRef,
+  Input,
   OnInit,
+  QueryList,
   Renderer2,
   ViewChild,
-  AfterViewInit,
-  QueryList,
+  ViewChildren,
 } from '@angular/core';
-import { AppState } from 'src/app/app.state';
 import { select, Store } from '@ngrx/store';
 import { fromEvent, MonoTypeOperatorFunction, Observable, Subject } from 'rxjs';
-import { selectLoading, selectHoveredWord, selectWsData } from 'src/app/store/wordsearch.selectors';
-import { tap, filter, takeUntil, switchMap, distinct, scan, map, withLatestFrom, startWith } from 'rxjs/operators';
-import { IScannedText, IHoveredWord } from 'src/app/shared/word-search-data';
-import { SetLoading, WordFoundSuccess } from 'src/app/store/wordsearch.actions';
+import { distinct, filter, map, scan, startWith, switchMap, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
+import { AppState } from 'src/app/app.state';
+import { IHoveredWord, IScannedText } from 'src/app/models/word-search-data';
+import { WordFoundSuccess } from 'src/app/store/wordsearch.actions';
+import { selectHoveredWord, selectLoading, selectWsData } from 'src/app/store/wordsearch.selectors';
 
 @Component({
   selector: 'wordsearch-grid',

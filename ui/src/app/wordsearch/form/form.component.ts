@@ -1,24 +1,20 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { AppState } from 'src/app/app.state';
-import { WordsearchDataService } from 'src/app/services/wordsearch-data.service';
 import { ClearFoundWords, FetchWordsearch } from 'src/app/store/wordsearch.actions';
 import { gridSizeValidator, wordLengthValidator } from 'src/app/validators/grid-size.validator';
 
 @Component({
   selector: 'wordsearch-form',
-  templateUrl: './form-dialog.component.html',
-  styleUrls: ['./form-dialog.component.scss'],
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.scss'],
 })
 export class FormDialogComponent implements OnInit {
   @Input() categories: string[];
-  wsForm$: { formGroup: FormGroup; categories: string[] };
-  isLoading$: Observable<boolean>;
   wsForm: FormGroup;
 
-  constructor(private store: Store<AppState>, private fb: FormBuilder, private dataService: WordsearchDataService) {}
+  constructor(private store: Store<AppState>, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.wsForm = this.fb.group(
@@ -34,12 +30,13 @@ export class FormDialogComponent implements OnInit {
 
   onNewWordsearchBtnClicked(formGroup: FormGroup) {
     if (!(formGroup.status === 'INVALID')) {
+      const { wordsearchSize, minWordLength, maxWordLength, category } = formGroup.value;
       this.store.dispatch(
         FetchWordsearch({
-          wordsearchSize: formGroup.get('wordsearchSize').value,
-          minWordLength: formGroup.get('minWordLength').value,
-          maxWordLength: formGroup.get('maxWordLength').value,
-          category: formGroup.get('category').value,
+          wordsearchSize,
+          minWordLength,
+          maxWordLength,
+          category,
         })
       );
       this.store.dispatch(ClearFoundWords());

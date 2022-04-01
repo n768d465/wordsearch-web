@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { IWordSearchData } from '../shared/word-search-data';
-import { IWordSearchParams } from '../shared/word-search-form-data';
+import { IWordSearchData } from '../models/word-search-data';
+import { IWordSearchParams } from '../models/word-search-form-data';
 
 export const FetchWordsearch = createAction('[Wordsearch] Fetch Wordsearch', props<IWordSearchParams>());
 export const FetchWordsearchSuccess = createAction('[Wordsearch] Fetch Wordsearch Success', props<IWordSearchData>());

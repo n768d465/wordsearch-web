@@ -1,5 +1,5 @@
-import { IHoveredWord, IWordSearchData } from '../shared/word-search-data';
-import { IWordSearchParams } from '../shared/word-search-form-data';
+import { IHoveredWord, IWordSearchData } from '../models/word-search-data';
+import { IWordSearchParams } from '../models/word-search-form-data';
 
 export interface WordSearchState {
   isLoading: boolean;

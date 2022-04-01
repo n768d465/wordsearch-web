@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AppState } from 'src/app/app.state';
-import { IWordConfiguration } from 'src/app/shared/word-search-data';
+import { IWordConfiguration } from 'src/app/models/word-search-data';
 import { MouseHoveredOnWord, MouseLeaveOnWord } from 'src/app/store/wordsearch.actions';
 import { selectFoundWords } from 'src/app/store/wordsearch.selectors';
 

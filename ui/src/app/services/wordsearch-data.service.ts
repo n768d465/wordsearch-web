@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { IWordSearchParams } from '../shared/word-search-form-data';
-import { environment } from 'src/environments/environment';
-import { IWordSearchData } from '../shared/word-search-data';
+import { Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
 import { catchError, timeout } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { IWordSearchData } from '../models/word-search-data';
+import { IWordSearchParams } from '../models/word-search-form-data';
 
 @Injectable({
   providedIn: 'root',

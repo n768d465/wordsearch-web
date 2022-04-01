@@ -26,7 +26,7 @@ const reducer = createReducer(
     return {
       ...state,
       isLoading: false,
-      data: payload,
+      data: { ...state.data, grid: payload.grid, wordConfigurationData: payload.wordConfigurationData },
       hoveredWord: null,
       foundWords: new Set(),
     };
@@ -34,7 +34,7 @@ const reducer = createReducer(
   on(FetchCategoriesSuccess, (state, payload) => {
     return {
       ...state,
-      categories: payload,
+      categories: payload.categories,
     };
   }),
   on(SetLoading, (state, payload) => {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from './app.state';
-import { FetchCategories, FetchWordsearch, SaveWordsearchParams } from './store/wordsearch.actions';
+import { FetchCategories, FetchWordsearch } from './store/wordsearch.actions';
 
 @Component({
   selector: 'app-root',
